@@ -1,4 +1,4 @@
-package ks.recursion;
+package ks.recursion.basics;
 
 public class Base {
     public static void main(String[] args) {

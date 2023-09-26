@@ -1,4 +1,4 @@
-package ks.recursion;
+package ks.recursion.basics;
 
 public class BasicRec {
     public static void main(String[] args) {

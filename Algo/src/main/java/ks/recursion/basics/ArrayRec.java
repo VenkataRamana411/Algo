@@ -1,4 +1,4 @@
-package ks.recursion;
+package ks.recursion.basics;
 
 import java.util.List;
 
