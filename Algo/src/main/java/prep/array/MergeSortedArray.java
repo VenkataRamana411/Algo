@@ -10,6 +10,7 @@ public class MergeSortedArray {
     }
 
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
+
         int i = m - 1;
         int j = n - 1;
         int k = m + n - 1;
@@ -22,5 +23,8 @@ public class MergeSortedArray {
         }
         System.out.println(Arrays.toString(nums1));
     }
-
+    public int sample(int[] nums){
+        Arrays.sort(nums);
+        return ((nums[nums.length-1]-1) * (nums[nums.length-2]-1));
+    }
 }
