@@ -21,7 +21,7 @@ public class DailyTemperature {
                 idx = stack.pop();
                 result[idx] = i-idx;
             }
-            stack.push(i);
+            stack.add(i);
         }
         return result;
     }
