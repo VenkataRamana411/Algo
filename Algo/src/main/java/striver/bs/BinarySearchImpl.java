@@ -11,6 +11,9 @@ public class BinarySearchImpl {
         int low = 0, high = nums.length - 1;
         int mid;
         while (low <= high) {
+            /** OverFlow case
+            mid = low + (high - low) / 2;
+             */
             mid = (low + high) / 2;
             if (nums[mid] == target) {
                 System.out.println("Element Found");
