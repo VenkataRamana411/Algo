@@ -7,6 +7,7 @@ public class CombinationSumTwo {
         int[] nums = new int[]{1, 1, 1, 2, 2};
         Arrays.sort(nums);
         Set<List<Integer>> ans = new HashSet<>();
+        List<List<Integer>> resultList = new ArrayList<>(ans);
         List<List<Integer>> answer = new ArrayList<>();
         combinationOptimization(nums, 0, 4, answer, new ArrayList<>());
         System.out.println(answer);
