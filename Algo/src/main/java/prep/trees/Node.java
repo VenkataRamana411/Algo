@@ -2,8 +2,8 @@ package prep.trees;
 
 public class Node {
     int data;
-    Node left;
-    Node right;
+    Node left = null;
+    Node right = null;
 
     Node() {
     }
