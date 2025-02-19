@@ -16,6 +16,7 @@ public class Palindrome {
             */
             StringBuilder sb = new StringBuilder();
             sb.append(input);
+            sb.delete(0,sb.length());
             sb.reverse();
             System.out.println(input+" is"+(input.contentEquals(sb)?" ":" not")+" palindrome");
 

@@ -23,6 +23,9 @@ public class Traversal {
         if (root == null) {
             return;
         }
+        StringBuilder sb = new StringBuilder();
+        String s = "";
+        s.endsWith("");
         inOrder(root.left);
         System.out.println(root.data + " ");
         inOrder(root.right);
