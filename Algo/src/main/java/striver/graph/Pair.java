@@ -2,8 +2,8 @@ package striver.graph;
 
 public class Pair {
 
-    int distance;
-    int node;
+    public int distance;
+    public int node;
 
     public Pair(int distance, int node) {
         this.node = node;

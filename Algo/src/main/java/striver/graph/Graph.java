@@ -34,7 +34,21 @@ public class Graph {
             adj.get(edge[1]).add(new Integer[]{edge[0],weights[i]}); //one directed graph don't have this step
             i++;
         }
-        System.out.println(adj);
+        return adj;
+    }
+
+    public static ArrayList<ArrayList<Pair>> buildWeightedGraphPair(int n, int[][] edges, int[] weights){
+        /** 1 based index **/
+        ArrayList<ArrayList<Pair>> adj = new ArrayList<>();
+        for (int i = 0 ; i <= n ; i++){
+            adj.add(new ArrayList<>());
+        }
+        int i = 0;
+        for (int[] edge : edges){
+            adj.get(edge[0]).add(new Pair(weights[i],edge[1]));
+            adj.get(edge[0]).add(new Pair(weights[i],edge[0])); //one directed graph don't have this step
+            i++;
+        }
         return adj;
     }
 
