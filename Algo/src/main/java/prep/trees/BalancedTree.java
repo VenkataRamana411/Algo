@@ -16,6 +16,7 @@ public class BalancedTree {
         if(root == null){
             return 0;
         }
+
         int leftHeight = maxHeight(root.left);
         int rightHeight = maxHeight(root.right);
         if(Math.abs(leftHeight-rightHeight) > 1){

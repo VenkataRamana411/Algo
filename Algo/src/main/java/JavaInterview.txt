@@ -1,0 +1,1848 @@
+1.	What is OOPS concept?
+Object oriented programing is a concept where we organize our program around classes and interfaces. There are 4 basic principles in it.
+•	Inheritance
+•	Abstraction
+•	Polymorphism
+•	Encapsulation
+2.	What is Inheritance?
+  Inheritance is a concept in which one object acquires/inherits another object’s properties. The idea behind this is that we can create new classes built on existing classes, i.e., when you inherit from an existing class, we can reuse methods and fields of the parent class. Inheritance represents the parent-child relationship.
+3.	What is Abstraction?
+Abstraction is a process which displays only the information needed and hides the unnecessary information. We can say that the main purpose of abstraction is data hiding. Abstraction means selecting data from a large number of data to show the information needed, which helps in reducing programming complexity and efforts.
+How to achive?
+4.	What is Polymorphism?
+Polymorphism refers to many forms, or it is a process that performs a single action in different ways.
+Polymorphism is of two different types
+ Compile time polymorphism: When we overload a static method in java.
+ Run time polymorphism: It is also called a dynamic method dispatch is a method in which a call to an overridden method is resolved at run time rather than compile time. In this method, the overridden method is always called through the reference variable.
+By using method overloading and method overriding, we can perform polymorphism.
+5.	What is Encapsulation?
+Encapsulation is the process that binds together the data and code into a single unit and keeps both from being safe from outside interference and misuse.
+
+ In this process, the data is hidden from other classes and can be accessed only through the current class’s methods. Hence, it is also known as data hiding.
+
+Encapsulation acts as a protective wrapper that prevents the code and data from being accessed by outsiders. These are controlled through a well-defined interface.
+
+Encapsulation is achieved by declaring the variables as private and providing public setter and getter methods to modify and view the variable values.
+6.	Immutable class?
+A class whose state cannot be changed once it created is called Immutable class.
+•	It is good for caching purpose as we don’t need to worry about value changes.
+•	An immutable object remains in exactly one state, the state in which it was created. Therefore, immutable object is thread-safe so there is no synchronization issue. They cannot be corrupted by multiple threads accessing them concurrently
+Disadvantage:
+	Whenever we want to modify an existing object which is not possible in case of Immutable class so we end up creating new objects which results in high memory consumption.
+Ex: String , Wrapper classes (Integer,Long,Double..)
+•	Make class as final so it won’t be extended
+•	Make all instance variables as private and final
+•	Do not create any setter methods
+•	Initialize  all variable in constructor
+•	Use deep copy for mutable objects in constructor.
+•	Perform cloning of mutable objects while returning from getter method
+Ex: Address object in Employee class
+Public Address getAddress() throws CloneNotSupportedException{
+return (Address)address.clone();
+}
+7.	Abstract class
+Let’s say we have a class Animal that has a method sound () and the subclasses of it like Dog, Lion, Horse, Cat etc. Since the animal sound differs from one animal to another, there is no point to implement this method in parent class. This is because every child class must override this method to give its own implementation details, like Lion class will say “Roar” in this method and Dog class will say “Woof”
+Why can’t we create the object of an abstract class?
+Because these classes are incomplete, they have abstract methods that have no body so if java allows you to create object of this class then if someone calls the abstract method using that object then What would happen? There would be no actual implementation of the method to invoke.
+Also because an object is concrete. An abstract class is like a template, so you have to extend it and build on it before you can use it.
+8.	Difference b/w Interface and Abstract class?
+•	If we only know requirement not actual implementation we opt for interfaces, if we know at least partial implementation we can opt for abstract class.
+•	By default every method will be public & abstract, but in abstract we can have normal methods (Concrete methods) also.
+•	Private and protected modifiers are not supported in interface.
+•	For interfaces compulsory we should provide initialization at declaration itself  or else we will get compilation error.
+•	Instance and static blocks are not allowed in interfaces
+•	Constructor is not allowed and not required also as variable are already initialized and defined as static.
+Even though both provides same functionality we prefer Interfaces over abstract classes.
+Multiple inheritance is one more issue with abstract classes.
+After Java 8?
+9.	Singleton class?
+A singleton class is a class that can have only one object (an instance of the class) at a time.
+After first time, if we try to instantiate the Singleton class, the new variable also points to the first instance created. So whatever modifications we do to any variable inside the class through any instance, it affects the variable of the single instance created and is visible if we access that variable through any variable of that class type defined.
+To make class as singleton we can follow below steps.
+1.	Make constructor private.
+2.	Write a static method that has return type object of this singleton class.
+
+class Singleton {
+    // Static variable reference of single_instance
+    // of type Singleton
+    private static Singleton single_instance = null;
+
+    // Declaring a variable of type String
+    public String s;
+
+    // Constructor
+    // Here we will be creating private constructor
+    // restricted to this class itself
+    private Singleton()
+    {
+        s = "Hello I am a string part of Singleton class";
+    }
+
+    // Static method
+    // Static method to create instance of Singleton class
+    public static Singleton getInstance()
+    {
+        if (single_instance == null)
+            single_instance = new Singleton();
+
+        return single_instance;
+    }
+}
+//ThreadSafe singleton
+synchronized (GFG.class)
+      {
+        if(instance==null)
+        {
+          // if instance is null, initialize
+          instance = new GFG();
+        }
+
+      }
+
+//.micro vs web,JSON processing,deepVsshallow clone
+10.	How to break Singleton?
+We can break singleton by:
+•	Reflection: We can prevent it by throwing runtime Exception in constructor if instance is already there.
+•	Deserialization:  We need to override readResolve() method in the Singleton class and return the same Singleton instance
+@Override
+protected Object readResolve() {
+           return instance;
+     }
+•	Cloning:  We need to implement/override the clone() method and throw an exception CloneNotSupportedException from the clone method. If anyone tries to create a clone object of Singleton, it will throw an exception
+@Override
+    protected Object clone() throws CloneNotSupportedException  {
+        throw new CloneNotSupportedException();
+    }
+11.	How to return XML response?
+Add @Produces(MediaType.APPLICATION_XML) on method.
+Annotate POJO with @XmlRootElement  which represents values in XML format.
+
+12.	What is the use of Static block?
+Static block is used for initializing the static variables. This block gets executed when the class is loaded in the memory. A class can have multiple Static blocks, which will execute in the same sequence in which they have been written into the program
+13.	Marker interface?
+A marker interface is an interface that has no methods or constants inside it. It provides run-time type information about objects, so the compiler and JVM have additional information about the object. A marker interface is also called a tagging interface.
+	Ex: Clonable, serilizable
+If a class overrides clonable interface, we can have ability to override clone method.
+Why do we need it?
+	 Annotations can be a replacement of marker interface.
+	We can control operations by implementing marker interfaces.
+Ex: Discount will be given to only students who have implemented discount interface. (We can check whether particular object is instance of marker interface)
+14.	What is SerialVersionID?
+Serialization at the time of serialization, with every object sender side JVM will save a Unique Identifier. JVM is responsible to generate that unique ID based on the corresponding .class file which is present in the sender system.
+Deserialization at the time of deserialization, receiver side JVM will compare the unique ID associated with the Object with local class Unique ID i.e. JVM will also create a Unique ID based on the corresponding .class file which is present in the receiver system.
+ If both unique ID matched then only deserialization will be performed. Otherwise, we will get Runtime Exception saying InvalidClassException. This unique Identifier is nothing but SerialVersionUID.
+15.	What is reflection?
+Reflection allows us to grab information about the class at runtime from within the code.
+16.	What are default methods and uses of it?
+Default methods are used to add common functionality in interfaces without breaking it. For example, Let’s say we have to introduce one new method in an existing interface which is used by some of it’s subclasses, Without default method which ever class implements interface is broken as they must and should implement newly method. This can be overcome by using default methods.
+17.	What are static methods in interfaces and uses of it?
+•	Java interface static method is part of interface, we can’t use it for implementation class objects.
+•	Java interface static methods are good for providing utility methods, for example null check, collection sorting etc.
+•	Java interface static method helps us in providing security by not allowing implementation classes to override them.
+To use a static method, Interface name should be instantiated with it, as it is a part of the Interface only
+18.	PermGen space vs Meta space?
+PermGen stands for Permanent Generation. It is a special type of heap space. It is separate from the main memory (heap). JVM uses PermGen to keep track of loaded class metadata. All the static content is stored by the JVM
+to this memory section. Static content can be a static method, references to the static object and primitive variables. PermGen also contains information about bytecode, names, and JIT.
+Metaspace is a new memory space – starting from the Java 8 version; it has replaced the older PermGen memory space. The most significant difference is how it handles memory allocation.
+•	Specifically, this native memory region grows automatically by default.
+•	The garbage collection process also gains some benefits from this change. The garbage collector now automatically triggers the cleaning of the dead classes once the class metadata usage reaches its maximum metaspace size.
+Therefore, with this improvement, JVM reduces the chance to get the OutOfMemory error
+
+19.	Spliterator vs Iterator?
+ListIterator:
+•	Works only on List types (ArrayList,Linkedlist….)
+•	Can traverse elements present in Collection both in forward and backward directions.
+•	Can easily add elements to a collection at any time.
+•	We can modify or replace elements with the help of set(E e)
+Spliterator:
+•	Spliterator is introduced in Java 8.
+•	It is an iterator for both Collection and Stream API, except Map implementation classes.
+•	Unlike Iterator and ListIterator, it supports Parallel Programming functionality
+20.	Can constructor be
+Syncronized:
+ No , Because whole point of Synchronization is to make thread-safe which is not required in case of constructor .We will get compilation error if we try to do so.
+Private:
+Yes . We are using this approach in designing singletons.
+Static:
+No, we cannot define a static constructor in Java, If we are trying to define a constructor with the static keyword a compile-time error will occur.
+In general, static means class level. A constructor will be used to assign initial values for the instance variables. Both static and constructor are different and opposite to each other. We need to assign initial values for an instance variable we can use a constructor. We need to assign static variables we can use Static Blocks
+Final:
+No, a constructor can't be made final. In other words, constructors cannot be inherited in Java therefore, there is no need to write final before constructors
+21.	What is Functional programming?
+Functional programming is a paradigm that allows programming using expressions i.e. declaring functions, passing functions as arguments and using functions as statements (rightly called expressions in Java8). This style of programming is to make code more concise, less complex, more predictable, and easier to test compared to the legacy style of coding.
+
+22.	What is Lambda expression?
+The Expression through which we can represent an Anonymous function is called Lambda expression.
+A method which doesn’t has any name or prefix is called Anonymous function.
+Lambda is applicable only for the abstract method in Functional interface.
+//Is Anonymous functions are there in java 7 as well?
+
+23.	What is functional interface?
+An interface which contains only one abstract method but can have multiple default and static methods is called Functional interface.
+Ex:  Runnable  run()
+       Callable  call()
+       Comparable compareTo()
+       Comparator compare()
+
+Without Lambda,
+
+Class BookService {
+Collections.sort(books, new MyComparator());
+}
+Class MyComparator implements Comparator<Book>{
+   	@Override
+	Public int compare(Book o1,Book o2){
+		Return 01.getName().compareTo(o2.getName());
+}
+}
+
+With Lambda.
+Collections.sort(books,(o1,o2) -> o1.getName().compareTo(o2.getName()));
+24.	What is Consumer?
+Consumer is single argument functional interface which does not return any value.
+Consumer can be used in all contexts where an object needs to be consumed i.e taken as input and some operation is to be performed on the object without returning any result.
+void accept(T t);
+Ex:
+Consumer<Integer> consumer = t -> System.out.println(“Printing : ”+t);
+consumer.accept(10);
+We are using foreach in streams, we are actually passing Consumer functional interface to it.
+List1.stream().forEach(t -> System.out.println(“Print : ”+t); //printing list of values
+25.	What is Predicate?
+Predicate is used for conditional check.
+Predicate is single argument function which returns true or false. It has test method which returns boolean.
+boolean test(T t);
+Ex:
+Predicate<Integer> predicate = t -> {
+     If(t % 2 == 0){
+		return true;
+}else{
+return false;
+}
+};
+// Predicate<Integer> predicate = t -> t % 2 == 0; //Shorter version
+System.out.println (predicate.test(10));
+
+When we are using filter in streams, we are actually passing Predicate functional interface to it.
+
+List1.stream().filter(t -> t % 2 == 0).forEach(t -> System.out.println(“Print : ”+t);
+
+26.	What is Supplier?
+Supplier is function interface which does not take any parameter but returns the value using get method.
+T get();
+Supplier is used to return some value back.
+When we are using orElseGet in streams, we are actually passing Supplier functional interface to it.
+
+In Streams, we are doing some filter operation but we are not getting anything in return we can use this supplier to return some dummy data.
+System.out.println(List1.stream().findAny().orElseGet( () -> “Some response”) );
+
+27.	What is Stream?
+A stream is a sequence of objects that supports various methods which can be pipelined to produce the desired result.
+Stream accepts the data from collections and Arrays and don’t change the original data structure they only provide the result as per the pipelined methods.
+•	Functional programing  We can achieve through Lambda
+•	Reduce code  Less code needed than conventional approach.
+•	 Bulk operations we can do with high performance.
+          ForEach()  Used for iteration purpose.
+	for(String s:list){
+   System.out.println(s);
+}
+list.stream().forEach(t -> System.out.println(“Print : ”+t); //printing list of values
+//Conventional approach to iterate map
+Map.forEach( (key,value) ->  System.out.println(key+“: ”+value);
+But we can’t use pipeline methods in above approach.
+//With Streams
+Map.entrySet().stream().forEach( obj -> System.out.println(obj));
+Filter() -> Used for Conditional check
+For(String s:list){
+    If(s.startsWith(“R”)){
+   System.out.println(s);
+}
+}
+List.stream().filter(t -> t.startsWith(“R”)).forEach(t -. System.out.println(t));
+Map.entrySet().stream().filter(t -> t.getKey() % 2 == 0).forEach(t -> System.out.println(“Print : ”+t);
+Collect() -> Used to collect result
+List<Employee> employeesWithTax = DataBase.getEmployee().
+stream().filter().collect(Collectors.toList());
+28.	How to Sort list using Streams?
+Collections.sort(list); //Conventional approach
+Collections.reverse(list);
+List.stream().sorted().forEach(t -> System.out.println(t));
+List.stream().sorted(Comparator.reverseOrder).forEach(t -> System.out.println(t)); //For descending order
+Collections.sort(books,(o1,o2) -> o1.getName().compareTo(o2.getName())); // Conventional approach
+employee.stream().
+sorted((o1,o2) -> (int)o1.getSalary().compareTo(o2. getSalary ())
+.forEach(System.out::Println)
+);
+We can optimize it as below.
+Employee.stream().
+sorted(Comparator.comparing( emp -> emp.getSalary() ))
+.forEach(System.out::Println);
+We can further optimize by using method reference concept.
+Employee.stream().
+sorted(Comparator.comparing(Employee::getSalary))
+.forEach(System.out::Println);
+29.	What is optional?
+Optional is used to avoid Null pointer Exception in java. If value is null it will return optional.empty instead of throwing exceptions.
+Optional<String> name = emp.getName();
+name.of() // if we are sure value is there or else we get exception
+name.isPresent() // To check it contain any value in it or not
+name.orElse(“Default Name”)
+30.	What is Map-reduce?
+Map used for Transforming data and reduce used for Aggregating the data.
+Map()  Transform Stream<Object> to Stream of int
+Reduce()  combine stream of int and produce some result
+T reduce(T identity,BinaryOperator<T> accumulator);
+•	Identity is intial value of type T
+•	Accumulator is a function to do operation
+      	Integer sumResult = Stream.of(2,4,6,8,2)
+.reduce(0, (a,b) -> a+b);
+31.	Difference b/w list and set?
+•	List allows duplicate elements whereas set don’t allow any duplicates.
+•	List Stores values based on index whereas set stores based on hash value.
+•	If we want to create unique collection we can go for set.
+•	Multiple null elements are allowed in list whereas in set only single null element is allowed
+32.	Difference b/w Arraylist and LinkedList? //Time Complexities of collections
+•	ArrayList uses dynamic array to store elements internally, whereas LinkedList uses double linked list for storing elements.
+•	Manipulations are slow in ArrayList
+•	ArrayList is better for storing and accessing data whereas LinkedList is better for manipulations.
+33.	Types of  List object creation
+We can create List in two ways.
+•	ArrayList arraylist = new ArrayList<String>();
+Here we are directly creating object for implementation. So it is tight coupled approach.
+•	List<String> list = new ArrayList<>();
+Here List is parent interface, so with reference of parent we are creating object for its subclass called ArrayList. As its loosely coupled we can change to LinkedList or some other subclass of list interface without changing signature.
+RuntimePolymorphism: With the help of parent reference we are creating object of child.
+34.	Can we declare a list field with final keyword ?
+If we declare list as final, we can modify it means we can do manipulations but we can’t reassign it.
+final List<String> list = new ArrayList<>();
+list.add(“A”); // valid
+list.add(“B”); //validdiffere
+list = new ArrayList(); // Invalid as we are trying to reassign it.
+35.	How to make list immutable?
+If we want to have immutable list we can use unmodifiableList.
+List<Character> immutablelist = Collections.unmodifiableList(list);
+•	The unmodifiableList () method of java.util.Collections class is used to return an unmodifiable view of the specified list. This method allows modules to provide users with “read-only” access to internal lists. Query operations on the returned list “read through” to the specified list, and attempts to modify the returned list, whether direct or via its iterator, result in an UnsupportedOperationException
+
+36.	How to write customArrayList without allowing duplicates?
+We can achieve it by extending our customArraylist from ArrayList and by overriding add method to not to add duplicates.
+@Override
+Public Boolean add(Object obj){
+If(this.contains(obj)){
+	return true;
+} else{
+return super.add(obj);
+}
+}
+37.	Why Set doesn’t allow duplicate elements?
+Set internally uses map in add method to store elements, element is provided as key of map which doesn’t allow duplicate key.
+Private static final Object PRESENT = new Object();
+•	In HashMap, value stored is PRESENT which is a dummy object value
+38.	Any Special case where set allows duplicates?
+Set won’t allow duplicates in case of primitive type but in case of custom objects or Wrapper class it allows duplicates. We need to override equals and hashcode method to make it not to allow duplicates.
+Same concept applicable for Hashmap as well.
+39.	What is the difference b/w comparable and comparator?
+Comparable	Comparator
+1) Comparable provides a single sorting sequence. In other words, we can sort the collection on the basis of a single element such as id, name, and price.	The Comparator provides multiple sorting sequences. In other words, we can sort the collection on the basis of multiple elements such as id, name, and price etc.
+2) Comparable affects the original class, i.e., the actual class is modified.	Comparator doesn't affect the original class, i.e., the actual class is not modified.
+3) Comparable provides compareTo() method to sort elements.	Comparator provides compare() method to sort elements.
+4) Comparable is present in java.lang package.	A Comparator is present in the java.util package.
+5) We can sort the list elements of Comparable type by Collections.sort(List) method.	We can sort the list elements of Comparator type by Collections.sort(List, Comparator) method.
+
+We need to extend comparable or comparator based on our need.
+Arrays.sort()  We can sort primitive types like int,char,short,double
+Collections.sort()   Sorting objects
+Comparable:
+o	We have to implement and write custom logic in class which is not possible in case of 3rd party API’s.   We can write our logic in separate class and pass it on without touching existing code
+o	Single sorting means, let’s say we have compared with ID and later point of time we have decided to compare with name, now we have to change code again as it won’t support multiple flavours  We can implement as many flavours as we want without any limitation.
+
+40.	MultiComparator  using comparator scenario?
+For example , let’s say we have student class with ID and name fields where we need to compare ID’s if both are equal we have to compare name.
+@Override
+Public Boolean compare(Student s1,Student s2){
+If(s1.getId() == s2.getId()){
+return s1.getName().compareTo(s2.getName());
+}else(s1.getId() > s2.getId()){
+    return 1;
+}else{
+return -1;
+}
+}
+41.	What is the difference b/w failFast and FailSafe iterator?
+•	A iterator which will fail fast if we do any modification while iterating a collection is called fail fast iterator. Ex: ArrayList, HashMap and vector
+•	A iterator which will allow to do any modification while iterating a collection is called fail safe iterator. Ex: ConcurrentHashMap, CopyOnWriteArrayList and CopyOnWriteArraySet.
+   	Iterator usually maintain a field called modCount to check whether there are any modifications on collection , if it found modCount difference it will throw concurentModificaton exception .
+To avoid this we can use CopyOnWriteArrayList which basically won’t throw above exception as it even accept modifications in middle of iterations. It uses clone copy of object to update changes.
+In case of HashMap, we need to use ConcurentHashMap which will allow modifications directly on hashmap as it don’t have any clonable concept.
+42.	What is the need of ConcurrentHashMap and how it is different from HashMap?
+•	In case of normal hashMap or synchronized hashmap, whenever we are accessing an element it will lock other buckets as well along with current accessing one. But in case of ConcurentHashMap this locking is limited to segment wise that means only that particular bucket will be locked.
+•	The HashMap is non-thread-safe and cannot be used in a Concurrent multi-threaded environment. Comparatively, ConcurrentHashMap is a thread-safe and specially designed for use in multi-threaded and concurrent environment.
+•	HashMap is faster in single threaded environment whereas ConcurentHashMap is slightly better in multi-threaded environments.
+•	HashMap allows storing of null keys/values whereas ConcurentHashMap won’t allow nulls as keys/values,
+•	HashMap – FailFast , ConcurentHashMap – FailSafe
+43.	If we have Hashtable which  is already Syncronized then why we need ConcurentHashMap?
+Hashtable uses single lock for whole data. ConcurrentHashMap uses multiple locks on segment level (16 by default) instead of object level i.e. whole Map.
+So, For HashTable At a time only one thread is allowed to do modification but inc case of ConcurentHashMap multiple threads are allowed to do modifications.
+44.	We can Syncronize a hashmp using collections then why can’t we use that instead of ConcurrentHashMap?
+It will also acts as HashTable only where again locking mechanism is different.
+45.	How HashMap Internally works?
+•	When we create HashMap it will create an empty 16 buckets (0-15) where every bucket considered as LinkedList. Each bucket contains multiple Nodes.
+•	When we try to put a value in hashMap , put method internally calls hash method which will evaluate hashvalue for given key. Based on hashValue index value is calculated.
+•	Map.put(e1,”Dev”); //Let’s assume we got 6 as index. So it’s added to 6th index bucket.
+•	Map.put(e2,”QA”); //Let’s assume we got 9 as index. So it’s added to 9th index bucket.
+•	Map.put(e3,”UI”); //Let’s assume we got 6 as index. But we have already object present at obtained bucket. This is called hashing Collision. After this , it checks equals method to check if both the content are same or not. If it find different it will add it to same bucket node. If it is same it will replace with new object.
+•	If key is null, Entry will be based in 0 bucket.
+46.	What is the enhancement done for HashMap in Java8?
+If for the same node, hash Collisions occurs more than 5 then it converts LinkedList to BalancedTree to maintain balance of nodes.
+47.	How TreeMap internally works?
+Map<String,String> map = new TreeMap<>();
+Map.put(“a”,”xyz”);
+As it’s a first Entry it will directly added.
+Map.put(“d”,”PQR”);
+It will compare new value with previous value and decide where to add.
+Here, “d”.compareTo(“a”)
+//d>a  It will return +1 which will add to right side of a.
+//a<d  It will return -1 which will add to left side of a
+48.	HashMap vs LinkedHashMap?
+The LinkedHashMap is quite similar to HashMap, with an additional feature of maintaining the order of the inserted element. HashMap provides an easy way to insert, delete, and search the elements, but it does not provide any way to maintain and track the order of the inserted elements. Here, LinkedHashmap came into the picture, which overcomes this issue.
+49.	Why insertion order is needed?
+Performance. If you want the original insertion order there are the LinkedXXX classes, which maintain an additional linked list in insertion order. Most of the time you don't care, so you use a HashXXX, or you want a natural order, so you use TreeXXX.
+Order matters when you are creating for instance a wizard or a flow engine or something of that nature where you need to go from state to state or something. In that sense you can read off stuff from the list without having it keep track of what you need next or traverse a list to find what you want. It does help with performance in that sense.
+50.	HashMap vs HashTable?
+•	Hashtable is synchronized as It is thread-safe and can be shared with many threads whereas Hashmap is non-synchronized.
+•	HashTable don’t allow null key or value but hashmap allows one null key and multiple null values.
+51.	 Why hashTable won’t allow null values? Concurrent HashMap - P???
+In order to successfully store and retrieve objects from a HashTable, the objects used as keys must implement the hashCode method and the equals method. Since null is not an object, it can’t implement these methods. HashMap is an advanced version and improvement on the Hashtable. HashMap was created later.
+HashTable - Does not allow null keys This is because, in put(K key, V value) method, we have key.hashcode() which throws null pointer exception. HashTable - Does not allow null value This is because, in put(K key, V value) method we have if(value==null){throw new NullPointerException
+HashMap allows null values as it doesn't have any checks like HashTable, while it allows only one null key. This is done with the help of putForNullKey method, which add the value to the 0th index of the internal Array every time the key is provided as null.
+52.	How ArrayList works internally?
+•	ArrayList is a resizable array implementation in java.
+•	The backing data structure of ArrayList is an array of Object class
+•	When creating an ArrayList you can provide initial capacity then the array is declared with the given capacity.
+•	The default capacity value is 10. If the initial capacity is not specified by the user then the default capacity is used to create an array of objects.
+•	When an element is added to an ArrayList it first checks whether the new element has room to fill or it needs to grow the size of the internal array, If capacity has to be increased then the new capacity is calculated which is 50% more than the old capacity and the array is increased by that capacity.
+53.	Serialization
+Converting object into stream of bytes to store into file or transfer over network called Serialization.
+What if we haven’t defined serialVersionUID?
+JVM will generate it for us
+What if we don’t want to serialize a field?
+Define it as Transient or static
+Suppose if a class contains a reference object but this reference class is not serializable, what will happen?
+NotSerializableException will be thrown. So reference class must be serializable
+What happen if Superclass is serializable but not subclass?
+o	If superclass is serializable , all subclasses by default serializable
+What happen if subclass is serializable but not Superclass?
+o	If superclass don’t have default constructor, InvalidClassException will be thrown.
+o	If superclass has default constructor, serialization works by assign null to parent class fields and during deserialization values from default constructor will be populated
+If superclass is serializable, but don’t want subclass to be serializable?
+We need to implement readObject & writeObject and throw NotSerializableException().
+Private void readObject(ObjectInputStream in) throws IOException
+{
+Throw new NotSerializableException();
+}
+How to customize serialization process?
+We need to implement readObject & writeObject with custom logic.
+
+54.	Overriding
+o	Overridden method in subclass should have same method definition as of parent class
+o	Method invocation will be depends on object creation not reference.
+	Parent p = new Child(); // Child method will be executed
+Access modifiers:
+o	We cannot reduce visibility in overriding method
+o	Public -> protected -> default -> private
+o	If base is protected then we can use either public or protected in subclass
+Exception:
+o	If parent method not throwing any exception, child can throw only either runtime exception only
+o	If parent throws compile time exception, child overriding can throw
+	Same level or sub level exceptions
+	Runtime exceptions
+	No exception
+Static, final & private:
+o	Static, final & private methods can’t be overridden
+
+55.	Overloading:
+The process of defining method with same names with different parameters, return types and order of parameters.
+o	Widening: Up casting is possible
+o	Byte -> char -> short -> int -> long -> float -> double
+o	If we provide int type parameter, it will look for integer specific method if not there then look for method with long parameters.
+o	Down casting is not possible
+o	null: if we pass null,
+o	In case we have primitive types & a string type, it will call string method
+o	In case we have multiple object types, compile time exception will be thrown
+Covariant return type:
+o	Returning parent class in parent and returning child class in overridden method is called covariant return type.
+
+56.	JVM
+Java applications are called WORA (Write Once Run Anywhere). This means a programmer can develop Java code on one system and can expect it to run on any other Java-enabled system without any adjustment. This is all possible because of JVM.
+o	When we compile a .java file, .class files are generated which contains byte-code.
+Class Loaders:
+	It has 3 activities
+	Loading:
+o	Class loader reads .class file, generate corresponding binary data and save it into method area.
+o	After loading, JVM creates an object of type Class to represent this file in heap memory. This object can be used to get class level information like filed names, method names etc.
+Linking:
+o	Verification: It ensures the correctness of the .class file means it checks whether this file is properly formatted and generated by a valid compiler or not. This can be done by ByteCodeVerifier and will get VerifyError if verification fails.
+o	Preparation: JVM allocates memory for class variables and initializing the memory to default values.
+Initialization:
+o	All static variables are assigned with their values defined in the code and static blocks (if any).
+We have 3 class loaders.
+Bootstrap class loader:
+It loads core java API classes present in JAVA_HOME/jre/lib (Bootstrap path).
+	Extension class Loader:
+	It loads classes present in extension directories JAVA_HOME/jre/lib/ext
+	System / Application class Loader:
+	It is responsible to load classes from application class path.
+	It internally uses environment variable which is mapped in java.class.path
+	JVM follows the Delegation-Hierarchy principle to load classes. System class loader delegate load request to extension class loader and extension class loader delegate request to the bootstrap class loader. If a class found in the boot-strap path, the class is loaded otherwise request again transfers to the extension class loader and then to the system class loader. At last, if the system class loader fails to load class, then we get run-time exception java.lang.ClassNotFoundException.
+57.	JVM Memory:
+1.		Method area: In the method area, all class level information like class name, immediate parent class name, methods and variables information etc. are stored, including static variables. There is only one method area per JVM, and it is a shared resource.
+2.	Heap area: Information of all objects is stored in the heap area. There is also one Heap Area per JVM. It is also a shared resource.
+3.	Stack area: For every thread, JVM creates one run-time stack which is stored here. Every block of this stack is called activation record/stack frame which stores methods calls. All local variables of that method are stored in their corresponding frame. After a thread terminates, its run-time stack will be destroyed by JVM. It is not a shared resource.
+4.	PC Registers: Store address of current execution instruction of a thread. Obviously, each thread has separate PC Registers.
+5.	Native method stacks: For every thread, a separate native stack is created. It stores native method information.
+Execution engine:
+Execution engine executes the “.class” (bytecode). It reads the byte-code line by line, uses data and information present in various memory area and executes instructions. It can be classified into three parts:
+•	Interpreter: It interprets the bytecode line by line and then executes. The disadvantage here is that when one method is called multiple times, every time interpretation is required.
+•	Just-In-Time Compiler(JIT) : It is used to increase the efficiency of an interpreter. It compiles the entire bytecode and changes it to native code so whenever the interpreter sees repeated method calls, JIT provides direct native code for that part so re-interpretation is not required, thus efficiency is improved.
+•	Garbage Collector: It destroys un-referenced objects. For more on Garbage Collector, refer Garbage Collector.
+
+58.	Pass by Value vs Reference
+Java is always pass-by-value, but when the value is a reference to an object, the method can modify the object’s data (not the reference itself).
+59.	Externalization
+Externalization in Java is a mechanism that allows you to fully control the serialization (saving) and deserialization (restoring) of an object’s state, by implementing the Externalizable interface. Unlike standard serialization (using Serializable), where the Java Virtual Machine (JVM) handles it.
+We can implement it by following steps:
+•	Implement Externalizable interface - Note: Externalizable interface implements Serializable interface
+•	Declare Public no-args constructor – Mandatory otherwise deserialization will fail.
+•	Override void writeExternal(ObjectOutput out) throws IOException – Used for serialization. We can have all custom logic of how and what to handle will be defined here.
+•	Override void readExternal(ObjectInput in) throws IOException, ClassNotFoundException – Used for deserialization
+During serialization, only the data you explicitly write in writeExternal is stored. During deserialization, a new object is created using the public no-arg constructor, and then readExternal is called to populate the fields.
+More performant than Serializable as we have more control, so we can process only the required data.
+60.	Serializable
+•	Serialization will be limited to fields only not methods
+•	We will get NotSerializableException if reference class doesn’t implement Serializable interface.
+•	Static – JVM will load the value at that moment of deserialization
+•	Transient – Default for primitive, null for Strings and Objects
+61.	Anonymous inner class
+An anonymous inner class (also called as Anonymous class) in Java is an inner class without a name that is both defined and instantiated in a single statement, typically to provide a quick implementation of a class or interface for immediate use.
+Runnable r = new Runnable() { @Override public void run() { System.out.println("Anonymous inner class running."); } };
+Ex:
+interface Hello {  void greet(); }
+Without Anonymous:
+class HelloImpl implements Hello {
+    public void greet() {
+        System.out.println("Hello!");
+    }
+}
+With Anonymous: We can skip separate implementation class altogether and we can be able to do it on the fly. Applicable for classes as well.
+Hello hello = new Hello() {
+    public void greet() {
+        System.out.println("Hello from anonymous inner class!");
+    }
+};
+hello.greet(); // Output: Hello from anonymous inner class!
+Features:
+•	No Name: Anonymous inner classes cannot have a named constructor and cannot be referenced by class name.
+•	Single Use: They are usually used when you need to override methods or provide minor modifications to a class or interface implementation for a single use.
+•	Access to Enclosing Scope: They can access final or effectively final variables in their enclosing method and all members of the enclosing class.
+Limitations:
+•	Can extend only one class or implement only one interface at a time.
+•	Cannot have explicit constructors (since there is no name to match the constructor to)
+Lambdas are modern way of Anonymous class.
+Lambdas in Java only work with functional interfaces—that is, interfaces with exactly one abstract method—because this allows the compiler to unambiguously map the lambda's code to a single method implementation.
+For "normal" interfaces that have more than one abstract method, the compiler cannot determine which method your lambda is implementing, so it doesn't allow lambdas in those cases.
+
+62.	Type Inference
+Type inference in Java is the compiler’s ability to automatically determine the data type of a variable or expression based on the context.
+Ex:
+•	Generics: Map<String, Integer> map = new HashMap<>(); // Inferred as HashMap<String, Integer>
+•	Lambda: List<String> names = Arrays.asList("Ann", "Bob");     names.sort((a, b) -> a.compareTo(b)); // 'a' and 'b' inferred as String
+•	Local Variables (Java 10+): 	 Works for variables inside methods not class fields.
+                                                   var list = new ArrayList<String>(); // Compiler infers: ArrayList<String>
+                                                 var str = "Hello";                  // Compiler infers: String
+63.	Comparator Concept
+We can do it 3 ways. Note: Original list will be modified in all the ways.
+1.	Passing Comparator Logic in Collection
+•	You pass a Comparator instance (often via a lambda or anonymous class) directly to the sorting method (like Collections.sort(myList, myComparator)).
+•	Good for one-off or dynamic sorts: You can provide different comparison logic each time you sort, without changing the class of the objects.
+•	Doesn’t modify the object’s class: The sorting behaviour can be declared separately.
+•	Multiple ways to sort: You can have as many Comparator objects as needed (for sorting by name, age, salary, etc.), and simply pass whichever you want at runtime.
+•	List<Person> list = ...;
+Collections.sort(list, (a, b) -> a.getName().compareTo(b.getName())); // Sort by name
+Collections.sort(list, (a, b) -> Integer.compare(a.getAge(), b.getAge())); // Sort by age
+Direct implementation as below - Collections.sort(list, new AgeComparator());
+2.	Object Implementing Comparator
+•	Useful for reusable and named comparators: If the comparison logic will be reused often, or needs to be shared, putting it in its own class makes sense
+•	We can define as many comparator classes as we want like IdComparator, CityComparator, … etc
+class AgeComparator implements Comparator<Person> {
+@Override
+public int compare(Person a, Person b) { return Integer.compare(a.getAge(), b.getAge()); } }
+3.	Object Implementing Comparable
+•	We can define only natural/default ordering means in a single way.
+•	Can be used directly. Ex: Collections.sort(list);
+•	class Person implements Comparable<Person> {
+String name;
+@Override
+ public int compareTo(Person other) { return this.name.compareTo(other.name); } }  // Natural order by name
+	Multi Comparison
+Comparator<Employee> comp = Comparator.comparing(Employee::getAge)
+                                      .thenComparing(Employee::getName);
+Collections.sort(list, comp);
+64.	Interface method Conflicts
+•	Static - Not inherited, always accessed via interface name, never causes conflicts
+o	We cannot access through Base class even If it implements both interfaces. Static always tied to classes/interfaces.
+o	Base class can also define method with its own name
+•	Default / Abstract – Base class must override the method and need to resolve conflict on which method to use.
+interface A { void foo(); }
+interface B { void foo(); }
+class Base implements A, B {
+@Override public void foo()
+{ System.out.println("Implemented for both"); } }
+
+TODO: Pass by Value vs Reference, Externalization, Anonymous inner class, Generics and type inference, passing comparator logic in collection vs object implementing comparator  Precedence and effects, static in serialization, Lambda vs Anonymous class, what if 2 interfaces has same static method and base class extends it, Threads of parallelStream in lambda ,interface vs abstract post default methods, Reference types with GC
+AutoConfiguration in depth and how it works???? And how to exclude,Spring -boot-starter-parent, Pagination in rest api, Caching in Sporingboot with levels, Swagger, Application runner vs CommandLineRunner, Conflicting dependency and how to get required one, overriding starter dependency version, what happen if we have multiple @Springbootapllication and what if we use it without main method, actuator configurations, debug log, @ControllerAdvice vs @RestControllerAdvice with example use case, Query optimization !!!IMP, spring cloud and uses??, File upload rest end point, SSL/TLS , Kafka & MQ implementations, Spring session & cluster implementation, method level security , caching in springboot  with levels, Composite primary key JPA, QBE, Pagination example, Bi directional relationship @JsonManagedReference, SAGA, 12 APP microservices, Kafka/RabbitMQ enablement, GraphQL , HTTPS enablement, GPRC, GW VS LB,,, Circuit braker, Mutual TLS, Singleton in prototype bean, Connection pooling
+
+CSRF:
+Cross-Site Request Forgery (CSRF) is a type of attack that tricks the victim into submitting a malicious request usually to change state of resources. It uses the identity and privileges of the victim to perform an undesired function on their behalf.  For most sites, browser requests automatically include any credentials associated with the site, such as the user's session cookie, IP address, etc. Therefore, if the user is authenticated to the site, the site cannot distinguish between legitimate requests and forged requests.
+ By default, Spring Security's CSRF protection produces a unique token for each session. This token must be included in PATCH, POST, PUT, and DELETE methods. The server will then validate the token before processing the request. If the token is missing or invalid, the server will reject the request.
+Stateless APIs: If you are building a stateless REST API that does not use sessions or cookies for authentication (e.g., using token-based authentication like JWT), CSRF protection may not be necessary. In such cases, the API relies on tokens passed in headers, which are not vulnerable to CSRF attacks.
+
+@PreAuthorize and @Secured. Explain Uses and corresponding use cases:
+`@PreAuthorize` and `@Secured` are annotations provided by Spring Security to enforce method-level security in a Spring application. They are used to specify access control rules for methods, allowing you to define who can invoke a particular method based on roles or expressions.
+`@PreAuthorize` is used to specify a SpEL (Spring Expression Language) expression that determines whether a method can be invoked. It is more flexible and powerful than `@Secured` because it allows for complex expressions and conditions.
+•	Role-Based Access Control :You can use `@PreAuthorize` to restrict access to methods based on user roles.
+    	@PreAuthorize("hasRole('ADMIN')")
+    	public void adminOnlyMethod() {
+       	 // method logic
+    	}
+•	Permission-Based Access Control**: You can check for specific permissions or authorities.
+    	@PreAuthorize("hasAuthority('PERMISSION_READ')")
+    	public void readPermissionMethod() {
+      	  // method logic
+   	 }
+•	Complex Conditions**: You can use complex expressions to evaluate conditions based on method parameters or user attributes.
+    	@PreAuthorize("#userId == authentication.principal.id")
+    	public void userSpecificMethod(Long userId) {
+     	   // method logic
+ 	   }
+`@Secured` is used to specify a list of roles that are allowed to invoke a method. It is simpler and less flexible than `@PreAuthorize` because it only supports role-based access control.
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    public void adminOrUserMethod() {
+        // method logic
+    }
+- Use `@PreAuthorize` when you need more flexibility and the ability to use complex expressions for access control. It is suitable for scenarios where you need to evaluate conditions based on method parameters, user attributes, or custom logic.
+- Use `@Secured` for simple role-based access control where you only need to specify a list of roles. It is easier to use and understand for straightforward role checks.
+
+Hashing of Passwords:
+Hashing is a process that transforms a given input (such as a password) into a fixed-size string of characters, which is typically a hexadecimal number. The output, known as the hash, is unique to each unique input. Hashing provides security for passwords in the following ways:
+•	Irreversibility: Hash functions are designed to be one-way functions, meaning that it is computationally infeasible to reverse the process and obtain the original input from the hash. This ensures that even if an attacker gains access to the hashed passwords, they cannot easily determine the original passwords.
+•	Deterministic: The same input will always produce the same hash output. This allows the system to verify passwords by comparing the hash of the input password with the stored hash.
+              Salting: Salting is a technique used to enhance the security of hashed passwords by adding a unique, random value (called a salt) to each password before hashing. This ensures that even if two users have the same password, their hashed passwords will be different
+•	Generate a Salt: For each password, generate a unique, random salt. The salt should be long enough to ensure uniqueness and randomness.
+•	Combine Password and Salt: Concatenate the salt with the password. This combined value is then hashed.
+•	Store the Salt and Hash: Store the salt and the resulting hash in the database. The salt is stored in plaintext alongside the hash.
+•	Verify Password: To verify a password, retrieve the stored salt and hash from the database. Concatenate the salt with the input password, hash the combined value, and compare the result with the stored hash. If they match, the password is correct.
+
+### Spring Security Filter Chain
+Spring Security uses a filter chain to apply security measures to incoming HTTP requests. The filter chain is a sequence of filters that process requests and responses, providing various security functionalities such as authentication, authorization, CSRF protection, and more.
+
+The filter chain is typically composed of several predefined filters, including:
+- `SecurityContextPersistenceFilter`: Manages the `SecurityContext` for the duration of the request.
+- `LogoutFilter`: Handles logout requests.
+- `UsernamePasswordAuthenticationFilter`: Processes authentication requests using username and password.
+- `BasicAuthenticationFilter`: Processes HTTP Basic authentication.
+- `CsrfFilter`: Provides CSRF protection.
+- `ExceptionTranslationFilter`: Translates exceptions into HTTP responses.
+- `FilterSecurityInterceptor`: Performs authorization checks.
+To add a custom filter to the Spring Security filter chain, you need to extend the `WebSecurityConfigurerAdapter` and configure the filter chain using the `HttpSecurity` object. You can add your custom filter at a specific position in the filter chain or after/before a specific existing filter.
+•	Implement your custom filter by extending `GenericFilterBean` or another appropriate filter class.
+    public class CustomFilter extends GenericFilterBean {
+        @Override
+        public void doFilter(
+                HttpServletRequest request,
+                HttpServletResponse response,
+                FilterChain chain) throws IOException, ServletException {
+            // Custom filter logic
+            System.out.println("Custom filter executed");
+            chain.doFilter(request, response);
+        }
+
+        @Override
+        public void init(FilterConfig filterConfig) throws ServletException {
+            // Initialization logic if needed
+        }
+
+        @Override
+        public void destroy() {      // Cleanup logic if needed
+        }
+    }
+•	Extend `WebSecurityConfigurerAdapter` and add your custom filter to the filter chain.
+    @EnableWebSecurity
+    public class SecurityConfig extends WebSecurityConfigurerAdapter {
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                .addFilterBefore(new CustomFilter(), UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+          .and()
+                .httpBasic();
+        }
+    }
+In the above example, the custom filter is added before the `UsernamePasswordAuthenticationFilter`. You can also use `addFilterAfter` or `addFilterAt` to place the filter at different positions in the filter chain.
+
+AuthenticationManager and Provider Manager:
+
+AuthenticationManager is a core interface in Spring Security that defines a single method for authenticating a user:
+public interface AuthenticationManager {
+    Authentication authenticate(Authentication authentication) throws AuthenticationException;
+}
+•	Purpose: The AuthenticationManager is responsible for processing an Authentication request and returning a fully authenticated Authentication object if the authentication is successful. If the authentication fails, it throws an AuthenticationException.
+•	Usage: It is typically used as a high-level abstraction for authentication. When a user attempts to log in, the AuthenticationManager is called to authenticate the user's credentials.
+ProviderManager
+ProviderManager is the most commonly used implementation of the AuthenticationManager interface. It delegates the authentication process to a list of AuthenticationProvider instances.
+•	Purpose: The ProviderManager manages a list of AuthenticationProvider instances and iterates through them to find one that can perform the authentication. Each AuthenticationProvider is responsible for a specific type of authentication (e.g., username/password, OAuth, etc.).
+•	Usage: ProviderManager is used to handle multiple authentication mechanisms by delegating to different AuthenticationProvider instances. It tries each provider in order until one successfully authenticates the user or all providers have been tried
+
+Oauth2: JWT authenticity – what if user lost token, can we use both together?  SQL injection? Session handling in spring security for web application?? URL security how it even making sense ? Q15 sl4 in ava brains
+
+OAuth – Core Concept
+•	OAuth is for authorization, not authentication.
+•	Enables one service to access another service's resources on behalf of a user.
+________________________________________
+📦 Original Use Case
+•	Created to allow service-to-service access (e.g., a printing app accessing a user's photos from Google Drive).
+•	Not originally designed for logging users in.
+________________________________________
+❌ The Credential Problem
+•	Asking users for their Google ID and password is insecure.
+•	Users don’t want to give full access—just limited permissions (e.g., photos, not email).
+________________________________________
+💡 Why Sharing Links Doesn’t Work
+•	Not all data/services support sharing (e.g., address books).
+•	Sharing is not always practical or secure.
+________________________________________
+🔑 Valet Key Analogy
+•	OAuth is like a valet key: it starts the car but doesn’t open the trunk.
+•	Users grant limited, scoped access to third-party services.
+________________________________________
+🌐 OAuth as a Standard
+•	OAuth 2.0 is the current widely used version.
+•	It's an open standard with a defined flow for interoperability.
+________________________________________
+🔁 OAuth Flow (Simplified)
+1.	Service requests access to user’s data from a provider (e.g., Google).
+2.	Provider asks the user for permission.
+3.	If granted, the provider issues an authorization token.
+4.	Service uses the token to access permitted resources.
+________________________________________
+🪪 Access Tokens & JWT
+•	Tokens represent granted permissions.
+•	Usually implemented as JWTs (secure, self-contained tokens).
+•	Only the provider (e.g., Google) can issue valid tokens.
+________________________________________
+🚫 OAuth ≠ Authentication
+•	Users are already logged in (authenticated).
+•	OAuth manages what services are allowed to do on behalf of the user.
+
+
+OAuth Terminologies
+1.	Resource:
+o	A resource refers to the protected data or service being accessed.
+o	Example: Photos on Google Drive are the resource that the photo printing service wants to access.
+2.	Resource Owner:
+o	The user who owns the resource can grant or deny access to it.
+o	Example: The user with photos on Google Drive who grants the photo printing service permission to access them.
+3.	Resource Server:
+o	The server that holds the protected resource.
+o	Example: Google Drive, which hosts photos.
+4.	Client:
+o	The application requests access to the protected resource on behalf of the resource owner.
+o	Example: The photo printing service that wants to retrieve photos from Google Drive.
+5.	Authorization Server:
+o	The server that authenticates the resource owner and issues access tokens to the client.
+o	The resource server and authorization server may be part of the same system or separate entities.
+________________________________________
+Key OAuth Flows
+1. Authorization Code Flow (Secure Flow)
+•	Steps:
+1.	The user logs into the photo printing service and requests access to their photos on Google Drive.
+2.	The photo printing service (client) requests access from the authorization server.
+3.	The authorization server verifies the request with the resource owner (the user).
+4.	Once approved, the authorization server issues an authorization code (short lived) to the client.
+5.	The client exchanges the authorization code for an access token with Authorization server.
+6.	The client uses the access token to access the protected resource (photos) on the resource server (Google Drive).
+By sending an authorization code first (which is a short-lived and intermediate token), the client can securely exchange it for an access token over a backchannel (server-to-server communication) where it's less likely to be intercepted as even if someone intercepts the authorization code, it cannot be used without the client secret
+•	Why it’s secure:
+o	The access token is securely exchanged after the client receives an authorization code, minimizing the risk of token interception.
+2. Implicit Flow (Simplified Flow)
+•	Steps:
+1.	The user requests access to their photos on Google Drive via the photo printing service.
+2.	The photo printing service (client) requests access from the authorization server.
+3.	The authorization server checks with the resource owner for approval.
+4.	Instead of issuing an authorization code, the authorization server directly sends the access token to the client.
+5.	The client uses the access token to access the resource on the resource server.
+•	Drawback:
+o	The access token is exposed to the browser, which makes it less secure compared to the authorization code flow.
+o	Use case: Primarily used for JavaScript applications running in browsers, where the secure storage of tokens is challenging.
+3. Client Credentials Flow (Service-to-Service Authorization)
+•	Steps:
+1.	The client (e.g., microservice) authenticates directly with the authorization server using its own credentials.
+2.	The authorization server issues an access token to the client.
+3.	The client uses the access token to access the resource server (another microservice) and obtain data.
+•	Use case:
+o	Ideal for trusted services (e.g., microservices) that need to communicate with each other and access protected resources on behalf of their own systems rather than individual users.
+________________________________________
+OAuth Concepts in Practice
+•	Authorization vs. Authentication:
+o	OAuth is designed for authorization (granting access to resources), not authentication (verifying identity).
+o	The misconception arises when services offer "Sign in with Google" or "Sign in with Facebook," as these are essentially using OAuth for authorization, not authentication.
+•	Security Responsibility:
+o	The resource server (e.g., Google Drive) has the responsibility of ensuring secure access to its resources. It needs to validate the access tokens issued by the authorization server.
+•	Token Security:
+o	In the authorization code flow, access tokens are exchanged securely, while in the implicit flow, the access token is sent directly to the client, posing a potential security risk.
+•	When to Use Each Flow:
+o	Authorization Code Flow: Best for secure, server-side applications.
+o	Implicit Flow: Suitable for client-side JavaScript applications.
+o	Client Credentials Flow: Best for communication between trusted services or microservices.
+
+Overview of JWT (JSON Web Token)
+•	JWT is a popular method for user authorization in web applications and microservices.
+•	It follows the open industry standard RFC 7519, defining how JWTs should be structured and used to exchange information securely.
+________________________________________
+HTTP and Stateless Protocol
+•	HTTP is a stateless protocol, meaning each request must contain all the necessary information for the server to respond.
+•	Dynamic web applications require users to be identified in multiple interactions. However, HTTP doesn't inherently remember previous requests.
+________________________________________
+Session-Based Authentication (Traditional Approach)
+•	Session tokens are often used for maintaining user authentication over multiple requests.
+•	When a user authenticates, the server creates a session and provides a session ID, which is stored typically in a cookie.
+•	In subsequent requests, the browser automatically sends the session ID, allowing the server to identify the user.
+________________________________________
+Problems with Session Tokens
+1.	Distributed Architecture:
+o	In modern applications with multiple servers or microservices, the server storing the session information might be different from the one handling a user’s request.
+o	This can create session synchronization issues, where each server may not have access to the session data of the other server.
+2.	Solutions and Challenges:
+o	Shared session caches (e.g., Redis) can resolve this but add complexity.
+o	Sticky sessions (where the load balancer directs requests from a particular user to the same server) also limit scalability.
+________________________________________
+Introducing JWT: A Stateless Solution
+•	With JWT, instead of saving session information on the server, the server returns the user information as a token (JWT).
+•	This token is a self-contained JSON object containing the user's information (e.g., ID, roles).
+•	JWTs are signed to ensure their integrity, meaning the server can trust the data without needing to store anything on its side.
+________________________________________
+How JWT Works
+•	JWT includes three main parts:
+1.	Header: Contains metadata such as the algorithm used to sign the token.
+2.	Payload: Contains the claims (user data) such as user ID or roles.
+3.	Signature: Verifies the authenticity and integrity of the token.
+•	The signature ensures that if the token is tampered with, it becomes invalid.
+________________________________________
+Advantages of JWT
+1.	Stateless: No session storage needed on the server, making JWT ideal for distributed architectures.
+2.	Scalable: Works well in microservices and load-balanced environments where multiple servers handle requests.
+3.	Self-contained: The token itself contains all the information, meaning no server-side session management is required.
+________________________________________
+JWT vs Session Tokens
+•	Session Tokens: Serve as references to server-stored session data.
+•	JWTs: Contain the actual information inside the token, making it a self-contained unit.
+________________________________________
+How to Use JWT
+•	JWT can be sent in multiple ways:
+1.	Cookies
+2.	Authorization headers (e.g., Authorization: Bearer <token>)
+3.	Local storage (in client-side web apps)
+________________________________________
+JWT Use Case Example
+•	Authentication: The server can authenticate a user by verifying the JWT signature and reading the claims directly from the token.
+•	Authorization: The server uses the information in the JWT to decide whether the user has the necessary permissions to access specific resources.
+________________________________________
+Security of JWT
+•	The server signs the JWT to ensure its authenticity.
+•	When the client sends the JWT in subsequent requests, the server verifies the signature before trusting the contents of the token.
+________________________________________
+Conclusion
+•	JWT is a flexible and efficient solution for authentication and authorization in distributed web applications.
+•	It reduces the server’s need to store session data, making it highly scalable for systems like microservices.
+•	JWT can be transmitted in various ways (e.g., cookies, headers), offering flexibility in how it is integrated into web apps.
+
+JWT is a secure and compact way to transmit information between parties, mainly used for authorization, not authentication.
+________________________________________
+📦 JWT Parts (3 Sections)
+A JWT is made up of three base64-encoded strings, separated by dots (.):
+<Header>.<Payload>.<Signature>
+Header : Type of token and the signing algorithm used.
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+Payload Contains the claims: information about the user or token.
+•	Common fields:
+o	sub – subject (user ID)
+o	name – username
+o	iat – issued at
+o	exp – expiration time
+•	⚠️ Do NOT put confidential data (e.g., passwords, SSNs).
+•	Example:
+{
+  "name": "Kaushik",
+  "id": "12345",
+  "iat": 1714751000
+}
+Signature Ensures token integrity. Created by signing:
+HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
+Only the server knows the secret key, so only it can verify the token.
+________________________________________
+⚙️ How JWT Works
+1.	Client logs in, server authenticates using credentials.
+2.	Server generates JWT and sends it to client.
+3.	Client stores JWT (e.g., in local storage or cookies).
+4.	For each request, client sends the JWT in the HTTP header:
+Authorization: Bearer <JWT>
+5.	Server verifies the token using its secret and grants access if valid.
+________________________________________
+✅ Advantages of JWT
+•	Stateless — No session data stored on the server.
+•	Self-contained — Carries all necessary info in the token.
+•	Portable — Easily passed in headers or URLs.
+•	Tamper-proof — Signature ensures integrity.
+________________________________________
+⚠️ Disadvantages & Risks
+•	🔓 Payload is not encrypted — only encoded. Anyone can read it.
+•	🧑‍💻 If someone steals your JWT, they can impersonate you.
+•	🚫 No built-in logout — tokens can’t be invalidated unless blacklisted.
+•	⏳ Must manage token expiration properly.
+________________________________________
+🧠 Key Reminders
+•	JWTs are not for authentication, they’re for authorization after authentication.
+•	Always transmit JWTs over HTTPS.
+•	Use short expiry times and refresh mechanisms to limit exposure.
+To stop impersonation:
+o	Use HTTPS for transmitting JWTS
+o	Avoid storing JWTs in localStorage for web apps — consider HttpOnly cookies instead
+o	Use short expiry times and refresh tokens.
+	Refresh tokens are long lived (7 – 30 days) and only be used for getting new access tokens.
+	When access token expires, client sends refresh token, if its valid will get new pair or else 401 error
+o	Advanced: Bind token to some property of client like IP address
+o	Maintain blacklist where we can add tokens after logout or theft.
+
+
+SQL Injection:
+SQL Injection is a code injection attack where malicious SQL code is inserted into a query input to:
+•	Bypass authentication
+•	Read or modify sensitive data
+•	Delete or corrupt the database
+Suppose this query is used in code: SELECT * FROM users WHERE username = 'admin' AND password = '1234';
+If an attacker enters:
+Username: ' OR 1=1 –
+Password: (anything)
+The query becomes:  SELECT * FROM users WHERE username = '' OR 1=1 --' AND password = '';
+🔻 -- makes the rest a comment. Now, 1=1 is always true → authentication bypassed.
+Prevention:
+o	Use parameterized queries : SELECT * FROM users WHERE username = ? AND password = ?
+o	Input validation
+o	Least privilege DB Access
+o	Web Application Firewall
+	A Web Application Firewall (WAF) protects web applications by filtering, monitoring, and blocking malicious HTTP traffic especially attacks like SQL injection, cross-site scripting (XSS), CSRF, and more
+	WAF analyzes every HTTP request (headers, URL, query strings, form inputs) for malicious patterns:
+	Detects suspicious keywords (SELECT, DROP, ' OR 1=1 --, etc.)
+	Rate Limiting & Geo Blocking
+	Require CAPTCHA for repeated failures
+
+OAuth Used for Authorization. Basically, one application authorize user to use another application.
+Let say our service needs to access google photos. But we can’t ask user to give their username and password that we can use for authentication.
+Valet parking: Valet provides limited access to our car which are only be required to park the application.
+Service -> Google -> Ask user to allow or not -> If yes then give token with required permissions -> Service
+
+
+
+
+
+1.	Why we need solid Principle?
+
+
+The main goal of SOLID principles is to write better code which having readability, easy to maintain and testable.
+
+2.	What are solid Principles?
+
+•	Single Responsibility
+•	Open/Closed
+•	Liskov Substitution
+•	Interface Segregation
+•	Dependency Inversion
+
+3.	 What is Single Responsibility Principle in solid principles?
+
+It states  that  “One class should have one and only one responsibility”
+Which specifically means - we should write, change, and maintain a class only for one purpose.
+Example : POJOS follow SRP.
+Suppose we have Employee and Address Class, If we want to change the state of Employee then we do not need to modify the class Address and vice-versa.
+If you would have merged both as single POJO , then modification in one field for address (like state ) needs to modify and Whole POJO including Employee
+
+Ex: Controller should only be used to send/receive data, all business logic & Validations should be separated.
+
+Worst Design Example  which don’t follow SRP : Hitting Database in POJO of Employee Class. That’s why we have service layer, DAP layer and Entities separated.
+
+4.	 Why is Single Responsibility Principle IMP?
+
+In Real world, Requirements keep on changes and so does our code implementation to cater those changes. The more responsibilities our class has, the more often we need to change it. To prevent frequent changes to same class we use SRP.
+Testing is easier - With a single responsibility, the class will have fewer test cases
+Easier to Understand
+Less functionality also means fewer dependencies to other classes.
+So best practise says : Use layers in your application and break God classes into smaller classes or modules
+
+5.	What is Open/Closed Principle in solid principles?
+
+It states that “Software components should be open for extension, but closed for modification”
+
+The term “Open for extension” means that we can extend and include extra functionalities in our code without altering or affecting our existing implementation.
+
+The term “Closed for modification” means that after we add the extra functionality, we should not modify the existing implementation.
+
+In real world, You must have noticed that you change something to cater a new requirement and some other functionality breaks because of your change. To prevent that we have this principle in hand.
+
+Ex: We should avoid modifying base class instead we can derive from base and override methods
+
+6.	 How to implement Open/Closed Principle in solid principles?
+
+The application classes should be designed in such a way that whenever fellow developers want to change the flow of control in specific conditions in application, all they need to extend the class and override some functions and that’s it.
+
+Example - created a pojo employee with id , name. now new functionality comes which says add Training location. your constructor will fail for employees who didnt do training. better extend employee class, name it Traineed employee then add constructor.
+
+7.	What is Liskov substitution principle?
+LSP states that the software should not alter the desirable results when we replace a parent type with any of the subtypes or “Derived types must be completely substitutable for their base type”.
+This requires the objects of the sub classes to behave in the same as the objects of the super class. This is mostly seen in places where we do runtime type identification and then cast it to appropriate reference type.
+
+
+
+
+8.	What is interface segregation principle?
+
+ISP states that clients should not be forced to implement unnecessary methods which they will not use.
+ ISP states that we should split our interfaces into smaller and more specific ones.
+Ex: Pay with Card or UPI.
+
+9.	What is Dependency Inversion Principle?
+It States that Depends on extractions not on concretions.
+We should design our software in such a way that various modules can be separated from each other using an abstract layer to bind them together.
+It allows Programmer to remove hardcoded dependencies so that application becomes loosely coupled and extendable.
+For example let’s take a student class which requires an address object responsible for initializing and using the address object. If Address class is changed in future we have to make changes in student class also.This makes the tight coupling between student and address objects. We can resolve this problem using the dependency inversion design pattern where address object will be implemented independently and will be provided to student when student is instantiated by using constructor or setter based dependency inversion .
+
+
+
+
+
+
+
+
+
+
+
+65.	Is it possible to change port of Embedded Tomcat server?
+
+Add server.port in application.properties
+
+66.	Can we replace Embedded Tomcat server?
+
+Tomcat server is included in spring-boot--starter-web dependency. If we want to use any other server instead of tomcat , first we need to exclude tomcat dependency in spring-boot--starter-web and add corresponding server dependency of our choice.
+
+67.	Is it possible to disable web server in spring boot?
+
+We can achieve it by adding spring.main.web.application-type=none  in application.properties.So that application will start without any server.
+
+68.	How to disable specific auto configuration class?
+
+AutoConfiguration is enabled by default if we use @SpringBootApplication. If we want to exclude a particular class from being autoConfigured we can achieve it by adding below annotation.
+@EnableAutoConfiguration(exclude={Datasource.class})
+
+69.	How to reduce Spring Boot application start-up time?
+o	Analyze start up time by adding dependency spring-boot-startup-analyzer or through actuator startup endpoint /actuator/startup
+o	Disable unused autoconfiguration either through properties or programmatically like above
+	spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+o	Avoid full class path scanning, limit it to specified packages rather than root package
+o	Use lazy initialization . Ideally for dev environments
+	Globally: spring.main.lazy-initialization=true
+	Per Bean: Lazy while bean creation
+o	Remove unused starters if any
+o	Reduce external calls like loading large files, connecting to databases to post start up
+o	Profile specific initialization
+	@Profile("!test")
+@Bean
+public MyProductionBean prodBean() { ... }
+o	If we are going serverless and we are using spring 3+  we can use Ahead Of Time  (AOT) compilation
+	Normally Spring does a lot of things at startup time like scanning, auto wiring and all
+	With AOT, We move this work to build time so that it will generate precompiled metadata in binary format
+	We can reduce the startup time from seconds to milliseconds with very less memory usage due to binary
+	JVM normal applications : Reduce start up time by 25 to 30 %. By generating AOT-optimized code at build time so that at runtime, the JVM app uses this precomputed data.However,
+	Reflection is restricted
+	Custom class loading fails like Plugins, rule engines and scripts
+
+70.	What does @SpringBootApplication do internally?
+
+@SpringBootApplication is equivalent to 3 annotations.
+•	@Configuration :  It helps us to identify beans for particular spring  dependency injection.
+•	@EnableAutoConfiguration :  It helps to Auto Scan . I.e if particular bean is available in  classpath it will be autoScanned and added to set of dependencies.
+•	@ComponentScan : It used to scan for components and beans.
+We can customize these annotations according to our needs.
+A very common question asked is what is @SpringBootAnnotation
+
+@SpringBootApplication is a convenience annotation that adds all of the following:
+
+@Configuration: Tags the class as a source of bean definitions for the application context.
+
+@EnableAutoConfiguration: Tells Spring Boot to start adding beans based on classpath settings, other beans, and various property settings. For example, if spring-web MVC is on the classpath, this annotation flags the application as a web application and activates key behaviors, such as setting up a DispatcherServlet.
+
+@ComponentScan: Tells Spring to look for other components, configurations, and services in the com/example package, letting it find the controllers.
+71.	How to use a property defined in application.properties in your java class?
+
+We can access it by using @Value annotation.
+@Value(“${server.port}”)
+private String port;
+72.	Explain about @RestController in spring boot?
+
+
+73.	Bean Scopes in SpringBoot?
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) – To define scope
+If objects are managed by spring container, Any object can ask spring container to provide bean with ID.
+By default, during initialization of ApplicationContext container, it will look in spring XML and generate beans for all which are configured in the file. Post that whenever a object asking for some bean container returns the bean which already created at starting of container.
+Singleton : Default behavior
+•	Only once per Spring container.
+•	During initialization of context , it will generate all the beans which have definitions in spring.xml and return the same instance every time getBean() is happening.
+Prototype:
+•	New bean created with every request or reference.
+•	Container waits for someone to request the bean for creation and it won’t create these beans at context initialization.
+Web-aware context Bean scopes
+Request:  New bean per servlet request.
+Session: New bean for session.
+Global session : New bean per global HTTP session.(Portlet context)
+74.	How to inject a prototype bean in a singleton bean?
+•	Using ApplicationContext
+Use ApplicationContext to return the prototype bean.
+@AutoWired
+Private ApplicationContext applicationContext;
+
+Public String getMethod(){
+return applicationContext.getBean(protoTypeservice.class).getMethod();
+}
+Here ApplicationContext is directly calling springContainer to load the bean which actually bypassing IOC. As instead of spring to create dependencies we are asking container to provide the bean.
+•	Method injection
+@Lookup
+Public ProtoTypeService protoTypeService(){
+return null;
+}
+Public String getMethod(){
+return protoTypeService getMethod();
+}
+Even though we are returning null , spring overrides this method dynamically using proxy and provides required bean.
+75.	?
+If we have interface/class which implemented by multiple classes , there is an ambiguity to decide which bean to pick up , so application  won’t start.
+One way we can overcome this problem is by using @Qualifier(“cat”) to tell exactly which bean needed in this context.
+@Primary:
+When you annotate bean or class with primary means that particular bean has highest priority  when multiple implementations are available.
+
+@Required:
+
+
+
+Auto wire by name:
+@Autowired
+Private Animal dog;
+Auto Wiring by name , here spring checks with the name of dog in beans which implemented Animal and assign it to it
+AutoWire by Setter:
+
+Private Animal animal;
+
+@AutoWired
+Public void setAnimal(@Qualifier(“cat”) Animal animal){
+   this.animal = animal;
+}
+AutoWire by Constructor:
+
+Private Animal animal;
+
+@AutoWired
+ClassConstructor(@Qualifier(“cat”) Animal animal){
+   this.animal = animal;
+}
+
+Constructor injections are mandatory, means if spring unable to provide bean at time of calling it will throw error. But, if it is setter injection we can still do it by adding required method
+
+@AutoWired(required = false)
+Public void setAnimal(@Qualifier(“cat”) Animal animal){
+   this.animal = animal;
+}
+
+Here it only helps to start application that means we still get error if we try to access the bean which is not provided.
+
+
+76.	5 common spring exceptions
+NoSuchBeanDefinitionException: if we try to autowire a bean which is not available in container.
+NoUniqueBeanDefinitionException:  if we have a interface having two implementations defined and if we try to autowire it
+•	Either we have to use qualifier or primary to declare priority
+BeanCreationException:
+•	It will occur when we have circular dependency b/w 2 classes
+•	For example, we have two classes employer and department , both have dependency on each other and using constructor injection.  In this way both will wait for each other throwing an exception
+•	Fix: We can use @Lazy on constructor level to overcome this problem
+BeanInstantiationException:
+•	If we try to annotate an abstract class with service, component, etc. or we try to define using @Bean
+       ApplicationContextException :
+•	We will get it when we miss @EnableAutoConfiguration  annotation
+•	Fix: Either we have to define serveletContainer or add annotation
+
+77.	5 annotations apart from stereotype?
+•	@NoRepositoryBean: if we don’t want bean to be picked up and initiated by container.
+•	@GetMapping
+•	@DataJpaTest
+•	@SpringBootConfguration
+•	@Scope
+•	@Bean
+78.	Is it required to write @Repository annotations in spring data JPA?
+No as we extending our interface from JPARepository, spring boot automatically configure it for us even if we don’t have @Repository annotation.
+	Ex: public interface myInterface extends JpaRepository<,>{}
+79.	Dynamic Switching:
+We often encounter scenarios where we need to define multiple service implementations and want to switch between them based on the input. Most used practice is either using if-else blocks or switch conditions.
+However, there can be chance of lot of boilerplate code with auto wirings and conditionals. We can tackle this with the help of spring boot’s dynamic switching.
+•	Define common interface and make services implements it
+•	Declare Map<String,<Interface-Name>> in class.
+•	By default, it will map class name as key and instance of the class as value.
+•	However, we need to define custom values or shorter forms as switching is based on input. For this, Define Bean names according to input. Ex: @Service(“paypal”)
+It will ensure code is extensible and keep our code safe from growing over time with additional implementations.
+80.	 Explain the Spring Data Project and the hierarchy ?
+Uses: Instead of open/close connections with DB, writing queries on our own like traditional JDBC , Spring Data makes it easy for us to do all these operations just by defining as JPARepository.
+It will auto configure features like entity Manager, Persistence context, Transactions.
+Repository<> - Marker interface. Base repository
+CrudRepository<> - Extended from Repository. It contains all crud operation.
+PagingAndSortingRepository<> - Extends from Crud. It contains stuff related to sorting and pagination.
+JpaRepositoy<> - Extends from P&S Repository. It Contains methods like get, find, save, flush etc.
+If we extends JPA , will get all the other features
+Hibernate is the default provider for Spring Data JPA.
+
+81.	NoRepositoryBean – Can we use it on custom classes?
+Yes. We can use it if we don’t want use particular implementation or we don’t want to initiate particular interface
+We usually see every interface in spring Data is annotated with NRB. Because we can create a bean for our own interface directly and we don’t want beans to be created in every hierarchal level
+82.	Java config uses & limitation?
+A class annotated with @Configuration and used to define all beans is called Java config class.
+Advantages:
+•	Easy compared to XML approach. (<Bean>…</Bean>)
+•	We can Take control of bean creations using @conditional like when to create bean
+•	Readable
+
+83.	Custom Annotation
+Annotations are a form of metadata that provide data about a program, but they are not part of the program itself. Annotations can be used to provide information to the compiler, runtime, or other tools.
+You define a custom annotation using the @interface keyword. An annotation can have members (elements), but unlike interfaces, the members do not need to have a body
+// Define a custom annotation
+public @interface MyCustomAnnotation {
+    // Optional: Define elements for the annotation
+    String value() default "Default value"; // default value is optional
+    int version() default 1; // default value is optional
+}
+If no default value is provided, value has to be passed while using the annotation.
+@Retention: Specifies whether the annotation is available at compile-time, runtime, or in the source code only.
+•	RetentionPolicy.SOURCE: The annotation is discarded by the compiler and is not included in the compiled .class file. This means the annotation is only available in the source code and will be ignored during the compilation process.    Use case: Documentation
+•	RetentionPolicy.CLASS: The annotation is retained in the compiled .class file but is not available at runtime. This is the default retention policy if no retention policy is specified. Use case: This retention policy is useful for annotations that are required for compile-time processing (such as code generation or validation) but don't need to be available while the application is running
+•	 RetentionPolicy.RUNTIME: The annotation is retained in the .class file and is also available at runtime via reflection. This allows for runtime inspection and processing of the annotation.
+@Target: Specifies where the annotation can be applied (e.g., methods, fields,    classes, etc.).
+•	ElementType.TYPE: Applied to classes, interfaces, or enums.
+•	ElementType.FIELD: Applied to fields.
+•	ElementType.METHOD: Applied to methods.
+
+84.	Static in Garbage collection
+In Java, the static keyword is used to create class-level variables and methods that are shared across all instances of a class. The static keyword can have an impact on garbage collection (GC) because it affects the lifespan of objects in a class.
+1.	Static Variables (Class-level Variables):
+o	Memory Management: A static variable belongs to the class itself, not to any specific instance of the class. Static variables are stored in the method area of the Java memory model (which is separate from the heap where instance variables are stored).
+o	Lifespan: Static variables live as long as the class itself is loaded into memory. They are not eligible for garbage collection until the class is unloaded (which typically happens when the program terminates or when using custom class loaders).
+o	Impact on GC: Static variables do not get garbage collected as long as the class is loaded. This means that objects referenced by static variables can prevent those objects from being garbage collected, even if no instances of the class exist anymore. This can potentially lead to memory leaks if static variables hold references to objects that are no longer needed.
+2.	Static Methods:
+o	Memory Allocation: Static methods are also stored in the method area (in the class's method table), and they are part of the class itself rather than any object instance.
+o	Lifespan: Don’t directly impact garbage collection because methods are not subject to garbage collection. However, if a static method holds references to objects (e.g., via static fields), those objects can be prevented from being garbage collected, as explained for static variables.
+3.	Static Classes (Inner Static Classes):
+o	A static inner class (a nested class marked with static) does not have a reference to the outer class instance. This means it behaves like a regular class and can be instantiated independently of the outer class.
+o	The lifetime of static inner classes is tied to the outer class. If the outer class is still loaded in memory, the static inner class will also be loaded and remain in memory, potentially impacting garbage collection.
+85.	Static vs Instance inner class
+•	 The inner class does not need access to instance members of the outer class.
+•	You want to create instances of the inner class without having an instance of the outer class.
+•	You aim to avoid unnecessary memory overhead by not holding an implicit reference to the outer class instance.
+•	The inner class is a utility or helper class.
+In general, static inner classes are more memory-efficient and flexible when you don't need instance-specific behavior, while instance inner classes are more appropriate when access to the outer class’s instance state is required.
+
+86.	Java 17
+For Spring 3.O we need minimum Java 17 version
+1. Sealed classes / Interfaces restrict which other classes can extend or implement them. So whatever class we have specified using permits those only be allowed to inherit it. Public class sealed Shape permits Circle, Square{}
+•	Unlike `final` , which blocks inheritance completely ❌
+•	Unlike `abstract` , which allows any class to extend it ✅
+•	Sealed classes allow only specific subclasses to extend them 🔒
+•	Now in JDK 17, Sealed Classes are being finalized with no changes from JDK 16.
+🔹 Why Use Sealed Classes?
+•	Better control over class hierarchies.
+•	Prevents unauthorized subclassing.
+•	Improves maintainability in large projects.
+2. Pattern Matching is a feature introduced to simplify and improve the use of instanceof checks and type casts. It allows more concise and readable code by combining the type check (instanceof) and the type cast into a single operation. Pattern matching was gradually introduced and stabilized in Java through several JDK releases, and it now supports instanceof, switch expressions, and more.
+if (obj instanceof String) { //Before
+    String s = (String) obj; // Explicit cast
+    System.out.println(s.length());
+}
+if (obj instanceof String s) {  // Combines check and cast   //After
+    System.out.println(s.length());
+}
+switch (obj) { //After
+    case String s -> System.out.println("String of length: " + s.length());
+    case Integer i -> System.out.println("Integer value: " + i);
+    case null -> System.out.println("Object is null");
+    default -> System.out.println("Unknown type");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1.  String vs StringBuffer ==>   Imutability vs Mutability
+•	Strings are Imuatable . So we are unable  to change or modify exising object value . Even if we try to change the string a new object is created.
+•	StringBuffer is mutable .
+•	In String equals method meant for content comparison but in StringBuffer its for reference comparison.
+2. ==  vs  equals
+Usually both of these operators meant for reference comparison
+But in some classes like String , equals method is overridden to make content comparison.
+3. Defining String
+We can define String in two ways.
+1.	String s1 = new String(“something”);   It creates an object in heap area and add to String constant pool(SCP).
+2.	String s2 = “something”; It checks for SCP , if match not found then it will add this to SCP.
+4.  Advantage of SCP
+•	Decreases memory utilization as same object is reused with multiple references.
+5. Why Strings are Immutable
+In java due to the concept of SCP, We are using same object for multiple references , so if one reference change the value of an object , it will effect all the remaining dependent objects . So in order to avoid this problem, we define our Strings as immutable.
+ 6. Immutability other than Strings
+All wrapper class objects are immutable. As they use same object as reference for certain range.
+For example,
+	Integer  -127 to 127  ; Same object is used as reference . outside this range new object is created for every value.
+
+
+Main limitation of interfaces is its bit hard to add new functionalities as we have to implement newly added method in all classes which implemented corresponding interface.
+In java 8 they overcomes this limitation  by adding default methods.
+
+Comparable interface:
+We have to extend comparable interface to use the feature. Ex:
+class MyClass implements Comparable< MyClass>{
+@Override
+public int compareTo(MyClass obj){
+return this.getYear().compareTo(obj.getYear());  //It will use default compareTo of integer class
+return - this.getYear().compareTo(obj.getYear());   // T
+//own logic
+If(this.getYear() > obj.getYear()){
+return 1;
+}else if(this.getYear()  < obj.getYear()){){
+return -1;
+}
+Return 0;
+}
+}
+
+compareTo() returns 3 types of integer values . +ve,-ve and zero.
+-ve : if current object lesser than the specified object. Ex: sout(“a”.compareTo(“x”));
++ve: if current object greater than the specified object. Ex: sout(“x”.compareTo(“a”));
+Zero: if current object is equal to specified object.  Ex: sout(“a”.compareTo(“a”));
+Comparator interface;
+We use a comparator for the customize sorting. Assume that you get a requirement to sort String class object in some order. You can’t change the String class source code. Hense to provide your own customize sorting logic you will be writing your comparator class by implementing an interface called comparator and overriding the compare() method. So the compare method is where we need to define our sorting logic. It’s similar to compareTo() of java Comparable interface.
+We have two sort methods in collections package.
+Collections.sort(list); // which take only list argument
+Colleactions.sort(list,Comparator<T>); // We can use to provide customized sorting
+
+
+Factory Pattern:
+For every program we have lot of classes and we need to instantiate the corresponding objects. Factory pattern we need to encapsulate all these instantiations in one separate class which will be uniform all over code.
+
+
+MULTI THREADING
+Thread is a lightweight sub process. Every Java program contains at least one thread called Main thread. Thread is create and controlled by Java.lang.Thread class.
+Thread life cycle
+New:  A new thread begins its life cycle in this state & remains here until program started it.
+Runnable: Once thread starts it comes under runnable state.
+Waiting :
+Running:
+Terminated:
+
+Multi Tasking:
+Process based MT:
+•	Executing several tasks simultaneously where each task has separate independent process.
+•	Applicable at OS level.
+Thread Based MT:
+•	Executing several tasks simultaneously where each task is separate independent part of same program. Each independent part can be executable by dedicated Thread.
+Java Memory Management:
+Stack:
+Stack is a linear data structure which stores a collection of objects.
+•	Java stack is a part of memory where temporary variables (local) are stored.
+•	Variables stored on stack exist for as long as the function that created them is running.
+•	Size of stack is varied since methods and functions create and delete variables as required.
+•	Memory is allocated and subsequently freed without you needing the memory allocation.
+•	Memory allocation happens when program is compiled
+Heap:
+Heap is the area in memory which is used to store objects.
+•	We by ourselves need to free up allocated memory where the blocks are no longer needed.
+•	There is no size limit in the heap.
+•	Compared to Stack, accessing is bit slow.
+•	Memory allocation happens at runtime.
+Heap Area is further divided into two spaces.
+1.	Young space
+2.	Old space
+Garbage collection starts by freeing the objects in Old space following FIFO
+Garbage Collection:
+The main objective of Garbage Collector is to free heap memory by destroying the objects doesn’t contain a reference. The technique is known as Garbage Collection
+In the very first step, unreferenced objects are identified and marked as ready for garbage collection. In the second step, the marked objects are deleted.
+Finalize() method is called before deleting object reference.
+System.gc() – is called to start garbage collection.
+Java memory model(JMM):
+Java Memory Model is a set of rules all JVMs have to follow to ensure correct working of our concurrent programs.
+JMM specifies set of rules to be followed to ensure visibility of fields amidst reordering of instructions.
+Every JVM has to implement these JMM rules.
+
+Out of Order execution : There is a possibility of compiler or JVM to change order of execution of code to boost performance without changing output.
+Field visibility:
+1.	Registers: small memory portion which is very fast to retrieve and store
+2.	L1 cache: Core specific cache
+3.	L2 cache: shared cache (Two cores can share one L2 cache)
+4.	L3 cache: shared across all cores
+5.	RAM: shared across all cores
+Higher the level greater size and latency.
+Public class VolatileVisiblity{
+Int x = 0;
+Public void writerThread(){
+	x =1 ;
+}
+Public void readerThread(){
+Int r2 = x;
+}
+}
+If we run above program in multi-threaded environment,
+•	Initially after initializing x , it will be stored in shared cache
+•	Thread-1 executes writerThread() which will increment x value and store it in local cache
+•	When Thread-2 executes readerThread() , Still it get x value as 0 only because the  value which updated by thread-1 hasn’t pushed to shared cache.
+This is called field visibility problem. We can overcome this by using volatile keyword.
+If we specify x as volatile, JVM ensures that whenever any change happened on x it will push the changes to shared cache so if any other thread loads the value it always gets updated value.
+  volatile int x = 0;
+Happens –before relationship:
+All the values which are updated before volatile value have to be updated and visible after reading volatile value.
+Public class VolatileVisiblity{
+Int a = 0 , b = 0;
+Volatile Int x = 0;
+Public void writerThread(){
+	a=1;
+b=1;
+	x =1 ;
+}
+Public void readerThread(){
+Int r1 = x;
+Int r2= a;
+Int r3= b;
+}
+}
+Volatile vs Atomic:
+For Visibility problem we can use volatile. Ex: Flags
+Ex: Let’s take a scenario where we have a flag which set to true initially.
+In Thread1 based on this flag we are running while loop.
+In Thread2 at some point we changed flag to false, but due to visibility issue it can’t be updated in Thread1. We can solve it by using volatile as always pushes updated value to shared cache.
+For compound operations we can use AtomicInteger/Long/Reference – counter,Increments
+Ex: We have a counter variable operating on multithreaded environment where we need to ensure proper updates. In this case volatile is ineffective because usually compound operations involves reading + manipulation.
+Thread1		Thread2
+Reads value
+			Reads value
+Increments  // Here by the time it pushes into shared cache Thread2 already reading is done
+			Increments  // So it still increments to same value as Thread1
+
+We can solve above problem by using Synchronization block or Atomic Integer.
+AtomicInteger counter = new AtomicInteger(1);
+Counter.increment();  //Internally it operates like Syncronization
+incrementAndGet() // Increment and return
+decrementAndGet() // Decr and return
+compareAndGet(int Existing,int New) // if value == existing it updates to New value or else nit did nothing.
+ThreadLocal:
+Creates instances specific to thread which helps in having memory efficient and thread –safety.
+
+Spring MVC flow:
+1.	HTTP request is received by Dispatcher servlet
+2.	As we have lot of controllers in our application, DS internally calls handlerMapper to decide which controller to call for this request.
+3.	Handler mapper identifies the controller by it’s name with the help of @RequestMapping (“customers”) annotation and sends details of this controller back to dispatcher Servlet.
+4.	Then DS calls the corresponding controller.
+5.	Controller is responsible for processing the data. So it will create model data and returns view and model to DS.
+6.	DS calls view resolver to decide corresponding view.
+7.	ViewResolver identify location of actual view pages and extension and returns to DS
+8.	Now DS send content and view to View Component.
+9.	View returns HTML page /response to sent back to caller.
+10.	DS sends this HTML back to caller.
+
+
+
+
+JUNIT 5
+Why new version?
+•	Junit is > 10 years old
+•	Not up to date with new testing patterns and features
+•	Supports monolithic
+Junit 5 new features:
+•	Junit API is called Jupiter(Newer tests)
+•	Vintage is set of API’s when we are running old version Junit4 tests
+•	EXT Extension of library(External testing libraries)
+For writing Junit5 we have to add Jupiter and Platform dependencies.
+Junit Jupiter – New programming model in Junit
+If we specify scope as test in any dependency it’s not gona include in final JAR
+
+junit-jupiter-api : API for writing test using Junit Jupiter
+junit-jupiter-engine: Implementation of TestEngine API for junit Jupiter
+junit-vintage-engine: To run Junit4 tests
+@Test – Marks it as Testable method
+
+//Virtusa
+Spring vs SpringBoot
+How many ways we can start Application
+Can we define same name for single bean
+Usage of qualifier
+On what basis it will return bean
+Different types of beans
+Bean scopes
+DI
+Types of DI
+AOP
+Hibernate
+Abstraction and encapsulation
+What we are achieving out of it.
+Arraylist vs Vector
+ArrayList vs LinkedList
+Optional
+Can we use optional on static method
+
+Coding:
+How to sort hashmap using values – using Java7
+How to remove duplicates in Streams list – Java8
+
+1.	Monolithic vs MicroServices:
+Monolithic	MicroServices
+•	Centralized architecture
+•	Easier to test & Debug
+•	Cross cutting concerns such as monitoring, logging in application itself
+•	Scaling is issue
+•	Technology barriers	•	Distributed
+•	Hard to debug
+•	Cross cutting are implemented in each service.
+•	Easily Scalable
+•	No Tech Barriers
+`
+2.	Advantages of MicroService?
+• Each Service is independent, standalone & represent a particular business functionality
+• Scaling is easy and feasible.
+• Deployment is easy and feasible.
+• No technology barrier
+• Flexible Data Storage capability.
+• Small autonomous team to handle services
+3.	Disadvantages of MicroServices?
+•	Implementation of distributed transaction
+•	Implementing logging and visualization of logs for a particular request
+•	Increase complexity if number of microservices increasing
+•	Additional Infrastructure cost . Even if you are on cloud, you have to pay for cloud use!
+•	• Increase security concerns
+4.	Why SpringBoot is preferred for MS in java?
+•	Spring boot helps to achieve standalone functionality
+•	It provides quick development start with starter template, auto configuration & embedded container support.
+5.	What is meant by Standalone?
+•	It means capability to function independently
+•	In SpringBoot, We can run it on embedded server and not dependent on external servers and all.
+6.	How microservices communicate with each other?
+•	If only few services, better to use rest Template or Web Client
+•	If services are exponential, better to use Service discovery pattern
+•	We can do client side SD using Eureka or Serer side SD using Zookeeper
+7.	How you implemented service discovery?
+•	I used Netflix Eureka for client side SD.
+•	SD is optional not mandatory
+8.	What will happen A->B->C, and C fails here?
+•	We can implement Circuit breaker pattern at C, in order to provide some default behavior
+•	We can use Hystrix
+•	To implement Circuit Breaker, we need to enable it in spring Boot main class and write fallback method to execute in case of failures.
+9.	How you implemented Circuit Beaker?
+•	We have to add hystrix in pom.xml
+•	Optional – if we want we can use hystrix dashboard dependency to visualize it
+•	@EnableCircuitBreaker on SpringBoot Main class
+•	Create fallback method and annotate it with @HystrixCommand(fallbackmethod = “name”)
+10.	Can we start from where we have failed instead of fallback method?
+•	Yes, for that we have to store state of micro service
+•	For storing state, either we can use message brokers like Kafka or DB. Prefer kafka , because DB calls are not cheap
+11.	What if we don’t want to expose any web service URL to users directly, how to achieve it?
+•	Yes we can use API gateway to do so.
+•	It will route to particular microservice based on parameters in uri
+12.	How you implemented Circuit Beaker?
+•	We used Spring cloud gateway
+13.	What are the things we can do with API gateway?
+•	Routing
+•	Authentication
+•	Authorization
+•	Policy management
+14.	Best Practices of MicroServices – 12 Factor APP
+15.	Do you know any Microservice design pattern?
+•	SAGA – Data consistency
+•	API Composition – Data Consistency
+•	Service Discovery pattern
+•	API Gateway pattern – For Routing mechanism
+•	Circuit Breaker pattern – Fallback mechanism
+•	Observability pattern – Logging, monitoring and tracing
+•	Deployement pattern
+16.	What is meant by Distributed Transaction?
+•	A transaction spanning over multiple DB in microservice context
+•	For single request, data is persisted in multiple DB’s at multiple time
+17.	Do you know any deployment strategy in MicroServices?
+•	Deployment per container i.e. Single Micro service -> Single container
+18.	How do I monitor MicroServices?
+•	For monitoring running service , we can use Actuator
+•	For Distributed logging, we can use ELK stack
+19.	What do you mean by scalli8ng in micro services?
+•	Based on traffic , increasing or decreasing instances of application
+•	If CPU utilization percentage > 70, Scale it up & if < 30 Scale it down
+20.	Is MicroService part of Cloud native?  Yes
+21.	Can we use embedded server in production?
+ Yes if we have low load and we need at least 3 instances of each service running behind load balancer
+22.	 Strangulation pattern?
+•	Used when we want to migrate monolithic to microservices.
+•	Instead of migrating the application as a whole, Identify a part which is independent from application and take it out of application.
+•	Now use router to route to monolithic or separated part based on request
+•	In this way we can migrate whole application part by part
+23.	How would you decompose business into microservice?
+•	Decomposition by Domain
+•	Decomposition by Sub Domain
+•	Usually  each business functionality we  can develop it as microservice
+•	Ex: Retail website : Items, Payments, customer, order
+24.	Diff b/w Synchronous and Asynchronous communication?
+•	Sync:
+o	Request is sent and wait until response is received
+o	Easy debugging and tracking
+o	Poor experience to user
+o	Will consume lot of threads
+•	Async:
+o	Request is sent and doesn’t wait for receiving of response
+o	We can use Executors
+o	We can use Future, Completable feature for storing result
+o	Hard to debug and track
+o	Good User experience
+Let’s say we are creating a new account , while entering username if suggestions are coming (Async) , if error user name not exist not coming until we submit it then it is Synchronous way
+25.	Which Communication we can prefer?
+o	It all depends on business case
+o	Small company payroll system – Sync
+o	A real time system like Trading application – Asynchronous
+26.	Can we deploy new instance with Zero downtime?
+o	We can achieve it by Blue-Green deployment.
+o	In case of Servers, let’s say we have 3 servers where our application is running currently, now we can deploy our application  & restart while still load is being served from other 2. Once server is UP, based on results we can do same process for other servers as well
+o	In case of Cloud native, we will maintain similar production like environment called staging environment, where we deploy our patches and route some load, if everything goes fine, we can keep staging as real production environment by making existing one as staging
+27.	How you handle versioning in microservices?
+o	We have 2 approaches
+o	URI versioning: something/v2
+o	Header versioning: X-version : 2.0  Preferred way
+28.	How you documented your microservices?
+o	We can use Swagger for documentation
+o	@EnableSwggerDocumentation is enough to generate it
+o	For complete documentation, we can go for Spring Rest docs
+o	Based on changes in Junits , rest docs will be updated accordingly
+
+
+
+
+
+
+
+
+
+
+HIBERNATE
+1.	How to make code database independent?
+Use ORM like hibernate or IBatis
+2.	What is ORM?
+o	ORM – Object Relational Mapping
+o	It defines how object is mapped to database
+o	Helps in achieving operations with data
+3.	How to make ORM independent code?
+o	We can use JPA – Java Persistence API
+o	JPA is set of specification independent of ORM
+o	Provides set of methods to deal with data persistence
+4.	Advantages of Hibernate over JDBC?
+o	We can create Tables based on POJO class
+o	Caching support
+o	DB independent code
+o	We can use NamedQueries or even native SQL query directly in code
+o	Conversion of JDBCException to uncheckedException
+o	Support of JPA
+o	Performance: JDBC is still fast in case of performance as even ORM framework needs to convert to JDBC then it will do operations on DB
+
+
+
+
+
+
+
+
+DBMS:
+Entity: Core identities for which the data needs to be stored. (Table) Ex: Book
+Relationships: How entities are connected
+Attributes:
+Data associated with each of the entities. (Columns) Ex: Book: Title, Author and Genre
+•	Simple Attribute: Atomic in nature and cannot be divided further. Ex: DOB & ID
+•	Composite Attribute: Non atomic in nature and can be divided. Ex: Name (First Name, Middle Name, Last Name)
+•	Derived Attributes: Not stored in DB but can be derived from other attributes. Ex: Age
+•	Multi Valued Attributes: Can have multiple values. Ex: Email IDs
+Keys:
+Super Key: An attribute or set of attributes that uniquely identifies a row/’s within as table
+•	ISBN & Title can uniquely identify a Book in Library System
+Candidate Key: A Super Key where we can still identify row by removing few attributes
+•	ISBN can be enough to identify a Book
+Primary Key: A Candidate Key selected as the standard to uniquely identify a row. Unselected candidate keys are known as alternative keys
+•	ISBN – Primary Key
+•	Title – Alternate Key
+Foreign Key: Attribute in one table that points to primary key of another table
+•	In Transaction Table, ISBN acts as a foreign key as it is a primary key for Book table
+Cardinality:
+One-to-One: Library Card to Member
+•	Each card associated with single member and vice versa
+One-to-Many: Member to Transactions
+•	Single member can do multiple transactions, but each transaction has only one member in it
+Many-to-One: Transaction – to - Book
+•	Multiple Transactions can be associated with same book as one person took it today and returns it then other person took it
+•	But each transaction record is associated with only one book
+Many-to-Many: Book to Category
+•	Each book has multiple categories and each category can have multiple books
+
+Entity Relationship Diagram:
+Entity – Rectangle
+Attributes – Oval
+Relationships – Diamond
+Participation – Total Participation (A customer may or may not have order) - |
+Partial participation (Order must have a customer ) - O
+Weak entity – Double Rectangle
+Weak relationship – Double Diamond – Relation b/w weak and strong entity .
+•	Ex: Bank account (SE) and Transaction (WE)
+In case of many to many, we need Junction table to handle the relationship. Ex: OrderDetails
+
+Generalization :
+•	Identifying the common features of the 2 or more entities.
+•	Forms Hierarchical structure
+•	Ex: Person  Employe and Student
+Specialization:
+•	Process of defining a set of subclasses from a super class
+•	Subclass inherits attributes and relationships from super class
+•	Reverse of Generalization
+Aggregation:
+•	Relationship itself participates in another relationship
+•	New entity will be created for it. This process is called Aggregation
+•	A Teacher teaches a student. (Many to Many)
+•	A Teacher belongs to school. (one to Many)
+Basically, School manages relationship b/w teacher and student. So, we need a junction table called teaching Assignment which contains teacherID and StundentID
+
+Normalization:
+Technique of organizing the attributes of a DB to reduce redundancy and  remove anomalies
+Anomalies:
+Student : studentID, name, courseID, courseName, InstructorName
+•	Insertion Anomaly: can’t add course information without assigning to students
+•	Deletion Anomaly: If we delete record of a student, we might lose course information as well
+•	Update Anomaly: If course’s Instructor changes, we need to update it in every row where particular course exist in entire table or else inconsistencies will arise.
+We will go through norms convert it progressively before moving ahead
+Student: StudentID, StudentName, Courses
+First Normal Form (1NF):
+•	It contains only atomic values
+•	Problem: We have multiple courses for single student which we are breaking atomic property.
+•	Solution: We will insert each course separately. If student A takes 2 courses then 2 rows will be created one with each course
+Here issue is redundancy as we are repeating student name.
+Second Normal Form (2NF):
+•	It should be in 1NF
+•	All non key (keys which are not primary keys) attributes are fully dependent on primary key.  No partial dependencies
+o	Ex: Employee: EmpID, EmpName, ProjectID, ProjectName, DeptName, DeptLocation
+o	{EmpID, ProjectID} – Primary key as we can multiple employees in single project. However we have a partial dependency as we can identify name, dept, location with empID itself.
+•	Solution: We will divide it into 2 tables
+o	Employe : EmpID, EmpName, DeptName, DeptLocation
+o	Project: EmpID, ProjectID, ProjectName
+Third Normal Form (3NF):
+•	It should be in 2NF
+•	No Transitive dependencies. DepartmentLocation depends on DepartmentName which in turn depends on EmployeeID
+•	Solution: Define separate DeperatmentTable : DeptName, DeptLocation
+o	Employe : EmpID, EmpName, DeptName
+Boyce-Codd Normal Form (BCNF):
+•	It should be in 3NF
+•	Course: CourseID,CourseTitle,Department,DeptHead,DeptHeadPhone
+o	CourseID -> Tile,Department    By using courseId we can get Title and department
+o	Department -> DeptHead,DeptHeadPhone
+o	DeptHead -> DeptPhone
+•	Solution:
+o	Course: CourseId,Title,DepartmentName
+o	Department: DepartmentName,DeptHead,DeptHeadPhone
+ACID:
+Atomicity:
+•	Either completes completely or not at all
+•	If any part of transaction fails, entire transaction is rolled back
+•	If system crashes before committing the transaction, the entire transaction is rolled back
+•	If T1 succeeds and T2 fails or vice versa, System should handle this scenario to maintain consistency. Typically rolling back T1 or ensuring both are committed together. Ex: Deposit and Withdraw
+Consistency:
+•	Transactions should ensure that the database transitions from one consistent state to another.
+•	Basically, DB ensures after all transactions, system should remain in consistent state.
+Isolation:
+•	Transactions should operate independently of each other. Intermediate states should not be visible.
+•	If we are in middle of transaction, don’t show the data until transaction is fully completed.
+•	Isolation ensures that concurrent transactions do no interfere with each other, maintaining the integrity of the Data base .
+Durability:
+•	Once a transaction is committed, its changes are permanent and should survive system crashes and failures.
+•	So even if system crashes, changes will persist even after system recovers
+States of Transaction:
+States between Begin and commit.
+Active:
+•	Ongoing, not yet committed or rolled back
+•	Changes are made not yet visible to other transactions
+Partially committed:
+•	Not Yet committed
+•	Waiting for confirmation to permanently save the changes
+Committed:
+•	Changes are permanent and visible to other transactions
+Failed:
+•	Cannot procced to commit.
+•	If recovery is not possible, it will be rolled back
+Aborted:
+•	Transaction has been rolled back after a failure
+•	Changes are undone.
+Indexing:
+A technique to speed up the reading of records from a DB table
+•	It will improve the efficiency of data retrieval operations at the cost of additional storage and maintenance overhead.
+•	Improves query performance by reducing the number of disk reads required to find a record.
+•	Index will fetch  records which we are searching up and its near by records and store it RAM for fast retiral.
+Types of Index :
+Single Column index: Useful when queries frequently filter or sort by this column
+Composite Index: Useful when queries filter or sort by multiple columns
+Unique Index: Ensures all values in the indexed columns are unique. Ex: Primary Key
+Clustered Index:
+•	Useful for maintaining sorted order
+•	Only one clustered index per table
+•	Useful for range queries where data is accessed sequentially
+Non-Clustered Index:
+•	Separate Structure will be created to points to location of rows
+•	Created on columns not included in clustered index
+•	Useful for un sorted columns
+Indexes are implemented by B-Trees.
+B Trees:
+A Balanced Tree structured that allows for efficient searching, insertion and deletion.
+Properties:
+•	All leaves are on same level
+•	All Keys are sorted on ascending order
+Topics to Cover:
+B Trees
+Views
+Procedures
+Queries and Joins
+
