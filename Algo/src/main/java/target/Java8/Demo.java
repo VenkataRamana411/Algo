@@ -70,6 +70,8 @@ public class Demo {
 //                        .map(subject -> new AbstractMap.SimpleEntry<>(student, subject.getMarks())))
 //                .max(Comparator.comparingInt(Map.Entry::getValue))
 //                .map(Map.Entry::getKey);
+
+        subjectList1.stream().max(Comparator.comparing(Subject::getMarks)).map(Subject::getSubjectName).get();
         Student result = studentList.stream()
                 .flatMap(student -> student.getSubjects().stream()
                         .filter(subject -> subject.getSubjectName().equals("Maths"))
