@@ -2,6 +2,7 @@ package target.Java8;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Stream1 {
     public static void main(String[] args) {
@@ -51,5 +52,6 @@ public class Stream1 {
         //SummaryStatistics
         IntSummaryStatistics intSummaryStatistics = list.stream().mapToInt(a -> a).summaryStatistics();
         System.out.println(intSummaryStatistics.toString());
+
     }
 }

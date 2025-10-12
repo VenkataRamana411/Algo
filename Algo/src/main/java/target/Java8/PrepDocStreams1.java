@@ -61,5 +61,13 @@ public class PrepDocStreams1 {
                 ));
 
         System.out.println(employeeList);
+
+        String input = "ramana";
+
+//        employeeList.stream()
+//                .collect(Collectors.toMap(Employee::getName,Employee::getSalary))
+//                .entrySet()
+//                .stream()
+//                .sorted(Comparator.c(Employee::getSalary));
     }
 }

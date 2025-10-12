@@ -16,9 +16,10 @@ public class Stream2 {
         Set<Integer> hashSet = new HashSet<>();
         System.out.println(list.stream().filter(s -> !hashSet.add(s)).collect(Collectors.toList()));
         //Alternative Way
-        list.stream()
+        List<Integer> collect1 = list.stream()
                 .collect(Collectors.groupingBy(i -> i, Collectors.counting()))
-                .entrySet().stream()
+                .entrySet()
+                .stream()
                 .filter(e -> e.getValue() > 1)
                 .map(entry -> entry.getKey())   //.map(Map.Entry::getKey)
                 .collect(Collectors.toList());
@@ -67,6 +68,24 @@ public class Stream2 {
         Stream.concat(stream1,stream2)
                 .map(s -> (Object) s)
                 .forEach(System.out::println); // Works but can give casting issues
+        String[] strings2 = new String[]{"venkata b","ramana b","bandela"};
+        Optional<String> longestString = Arrays.stream(strings2)
+                .collect(Collectors.toMap(s -> s, s -> s.length()))
+                .entrySet()
+                .stream()
+                .sorted(Comparator.comparing(entry -> entry.getValue(),Comparator.reverseOrder()))  //.sorted(Map.Entry.comparingByValue())  //  .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .limit(1)
+                .map(Map.Entry::getKey)
+                .findFirst();
+        System.out.println(Arrays.stream(strings2).max(Comparator.comparing(s -> s.length())).get());
+        System.out.println(longestString.get());
+        String s = "a ab aa A a a b ";
+        Map<String, Integer> collect2 = Arrays.stream(s.split(" "))
+                .map(String::toLowerCase)
+                .collect(Collectors.toMap(st -> st, st -> 1, (a, b) -> a + b));
+        System.out.println(collect2);
+
+
     }
 }
 
